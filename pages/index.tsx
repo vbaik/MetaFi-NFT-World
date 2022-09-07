@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'; //NextPage type is next.js's built-in type that allows to properly type page components
 import { BaseLayout, NftList } from '../components';
 import nftData from '../content/meta.json';
+import { NftMetaData } from '../types/nft';
 
 const Home: NextPage = () => {
   return (
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
               Mint a NFT to get unlimited ownership forever!
             </p>
           </div>
-          <NftList nftData = {nftData}/>
+          <NftList nftData = {nftData as NftMetaData[]}/>
         </div>
       </div>
     </BaseLayout>
