@@ -14,7 +14,9 @@ const NftList: FunctionComponent<NftListProps> = ({ nftData }) => {
           key={nft.image}
           className='flex flex-col rounded-lg shadow-lg overflow-hidden'
         >
-          <NftItem />
+          <NftItem 
+            item = {nft}
+          />
         </div>
       ))}
     </div>
