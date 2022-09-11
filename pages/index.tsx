@@ -7,6 +7,8 @@ import { useWeb3 } from 'components/providers/web3';
 const Home: NextPage = () => {
   const { ethereum, provider, contract, isLoading } = useWeb3(); //from providers/web3/index.tsx const const Web3Context = createContext<Web3State>(createDefaultState());
 
+  console.log(ethereum);
+
   return (
     <BaseLayout>
       {`is loading: ${isLoading}, `}

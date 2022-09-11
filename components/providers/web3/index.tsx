@@ -1,4 +1,10 @@
-import { createContext, FunctionComponent, useContext, useState } from 'react';
+import {
+  createContext,
+  FunctionComponent,
+  useContext,
+  useState,
+  useEffect,
+} from 'react';
 import { Web3Params, Web3State, createDefaultState } from './utils';
 
 //밑에꺼 꼭 넣어야 children에서 에러안남.
@@ -11,6 +17,18 @@ const Web3Context = createContext<Web3State>(createDefaultState());
 
 const Web3Provider: FunctionComponent<Props> = ({ children }) => {
   const [web3Api, setWeb3Api] = useState<Web3State>(createDefaultState());
+
+  useEffect(() => {
+    function initWeb3() {
+      setWeb3Api({
+        ethereum: window.ethereum, //need to create definition of ethereum in utils.ts
+        provider: null,
+        contract: null,
+        isLoading: false,
+      });
+    }
+    initWeb3();
+  }, []); //called only once when the component is initialized 그래서 []를 2nd arg로 넣은것임..
 
   return (
     <Web3Context.Provider value={web3Api}>{children}</Web3Context.Provider>
