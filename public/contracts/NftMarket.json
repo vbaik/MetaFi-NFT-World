@@ -1,0 +1,133 @@
+{
+  "contractName": "NftMarket",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.12+commit.f00d7308\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/NftMarket.sol\":\"NftMarket\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/NftMarket.sol\":{\"keccak256\":\"0x7c3abb8b8742dc6c266ba54767b1c9a2ed6a3b9cd7321e90e2d8284ccb76897c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://760dc694737392c9b348e25bf08fc313c492dfdba29037ac37c1750098870c18\",\"dweb:/ipfs/QmccGufejcHdXtUswM7A1cHTdMWr4DWWXhMea81QCu8VtV\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122024756fd74422ec84a0af3062feccd5f5994dcbeeda6e28e466b4f9f0a0f2d41964736f6c634300080c0033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122024756fd74422ec84a0af3062feccd5f5994dcbeeda6e28e466b4f9f0a0f2d41964736f6c634300080c0033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "66:21:1:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "66:21:1:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.22 <0.9.0;\n\ncontract NftMarket {}\n\n",
+  "sourcePath": "/Users/vivian/Documents/Coding/myProjects/nft-marketplace/contracts/NftMarket.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/NftMarket.sol",
+    "exportedSymbols": {
+      "NftMarket": [
+        35
+      ]
+    },
+    "id": 36,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 34,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".22",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:32:1"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "NftMarket",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 35,
+        "linearizedBaseContracts": [
+          35
+        ],
+        "name": "NftMarket",
+        "nameLocation": "75:9:1",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 36,
+        "src": "66:21:1",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:57:1"
+  },
+  "legacyAST": {
+    "absolutePath": "project:/contracts/NftMarket.sol",
+    "exportedSymbols": {
+      "NftMarket": [
+        35
+      ]
+    },
+    "id": 36,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 34,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".22",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:32:1"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "NftMarket",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 35,
+        "linearizedBaseContracts": [
+          35
+        ],
+        "name": "NftMarket",
+        "nameLocation": "75:9:1",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 36,
+        "src": "66:21:1",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:57:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.12+commit.f00d7308.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x007BB88c0207c60beD25d86De7e6b466CEAb637a",
+      "transactionHash": "0x4d5ca71026d447da4b704c400ba67c4c7f30367c70b75c355376ed5d491c5c3d"
+    }
+  },
+  "schemaVersion": "3.4.6",
+  "updatedAt": "2022-09-12T00:48:03.379Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
