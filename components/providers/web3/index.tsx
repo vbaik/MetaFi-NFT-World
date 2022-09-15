@@ -5,7 +5,7 @@ import {
   useState,
   useEffect,
 } from 'react';
-import { Web3State, createDefaultState } from './utils';
+import { Web3State, createDefaultState, loadContract } from './utils';
 import { ethers } from 'ethers';
 
 //밑에꺼 꼭 넣어야 children에서 에러안남.
@@ -20,15 +20,17 @@ const Web3Provider: FunctionComponent<Props> = ({ children }) => {
   const [web3Api, setWeb3Api] = useState<Web3State>(createDefaultState());
 
   useEffect(() => {
-    function initWeb3() {
+    async function initWeb3() {
       const provider = new ethers.providers.Web3Provider(
         window.ethereum as any
       );
+      //load contract
+      const contract = await loadContract("NftMarket", provider) //(name of smart contract, provider)
 
       setWeb3Api({
         ethereum: window.ethereum, //need to create definition of ethereum in utils.ts
         provider,
-        contract: null,
+        contract,
         isLoading: false,
       });
     }
