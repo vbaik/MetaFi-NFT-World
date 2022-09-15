@@ -7,7 +7,14 @@ import { useWeb3 } from 'components/providers/web3';
 const Home: NextPage = () => {
   const { ethereum, provider, contract, isLoading } = useWeb3(); //from providers/web3/index.tsx const const Web3Context = createContext<Web3State>(createDefaultState());
 
-  console.log(contract);
+  //function for console logging NFT info:
+  const getNftInfo = async () => {
+    console.log(await contract!.name()); //! added to capture if contract is null.
+    console.log(await contract!.symbol());
+  };
+  if (contract) {
+    getNftInfo();
+  }
 
   const getAccounts = async () => {
     const accounts = await provider!.listAccounts(); //!붙여서 indicate that I am sure that the provider is defined and will not be null
