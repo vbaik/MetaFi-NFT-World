@@ -1,10 +1,16 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import {
+  Bars3Icon,
+  BellIcon,
+  ClipboardDocumentListIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline';
 
 import Link from 'next/link'; //to prevent refreshing when navbar link is clicked
 import ActiveLink from '../link';
+import { useAccount } from 'components/hooks';
 
 const navigation = [
   { name: 'Marketplace', href: '/', current: true },
@@ -15,7 +21,12 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Example() {
+export default function Navbar() {
+  const { data, isValidating, error } = useAccount('Some random params'); //just to test if hookFactory is working
+  console.log({ data });
+  console.log({ isValidating });
+  console.log({ error });
+
   return (
     <Disclosure as='nav' className='bg-gray-800'>
       {({ open }) => (
