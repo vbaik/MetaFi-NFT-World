@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "baseUrl": ".", //base URL is root folder of the project
-    "target": "es5",
+    "target": "esnext", //TS compiled to the latest JS version,
+    "watch": true, //recompile the file everytime we save the file.
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
