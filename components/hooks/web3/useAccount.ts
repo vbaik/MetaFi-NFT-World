@@ -1,8 +1,9 @@
 import useSWR from "swr";
+import { CryptoHookFactory } from "@_types/hooks";
 
 // deps means dependencies -> provider, ethereum, contract all from web3State
 // hookFactory is a function that returns a function. So the format is () => () => {}
-export const hookFactory = (deps: any) => (params: any) => {
+export const hookFactory: CryptoHookFactory = (deps: any) => (params: any) => {
   const swrRes = useSWR("web3/useAccount", () => {
     console.log({deps});
     console.log({params});
@@ -13,4 +14,4 @@ export const hookFactory = (deps: any) => (params: any) => {
   return swrRes;
 }
 
-export const useAccount = hookFactory({ethereum: null, provider: null});
+export const useAccount = hookFactory({ethereum: undefined, provider: undefined}); //values are potentially undefined in the beginning
