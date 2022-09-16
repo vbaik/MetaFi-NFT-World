@@ -7,6 +7,7 @@ import {
 } from 'react';
 import { Web3State, createDefaultState, loadContract } from './utils';
 import { ethers } from 'ethers';
+import { setupHooks } from 'components/hooks/web3/setupHooks';
 
 //밑에꺼 꼭 넣어야 children에서 에러안남.
 //In the new version of React, when you pass children, you need to explicitly specify a type for it:
@@ -25,13 +26,14 @@ const Web3Provider: FunctionComponent<Props> = ({ children }) => {
         window.ethereum as any
       );
       //load contract
-      const contract = await loadContract("NftMarket", provider) //(name of smart contract, provider)
+      const contract = await loadContract('NftMarket', provider); //(name of smart contract, provider)
 
       setWeb3Api({
         ethereum: window.ethereum, //need to create definition of ethereum in utils.ts
         provider,
         contract,
         isLoading: false,
+        hooks: setupHooks({ ethereum: window.ethereum, provider, contract }),
       });
     }
     initWeb3();
