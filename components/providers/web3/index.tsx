@@ -5,7 +5,12 @@ import {
   useState,
   useEffect,
 } from 'react';
-import { Web3State, createDefaultState, loadContract } from './utils';
+import {
+  Web3State,
+  createDefaultState,
+  loadContract,
+  createWeb3State,
+} from './utils';
 import { ethers } from 'ethers';
 import { setupHooks } from 'components/hooks/web3/setupHooks';
 
@@ -28,13 +33,14 @@ const Web3Provider: FunctionComponent<Props> = ({ children }) => {
       //load contract
       const contract = await loadContract('NftMarket', provider); //(name of smart contract, provider)
 
-      setWeb3Api({
-        ethereum: window.ethereum, //need to create definition of ethereum in utils.ts
-        provider,
-        contract,
-        isLoading: false,
-        hooks: setupHooks({ ethereum: window.ethereum, provider, contract }),
-      });
+      setWeb3Api(
+        createWeb3State({
+          ethereum: window.ethereum, //need to create definition of ethereum in utils.ts
+          provider,
+          contract,
+          isLoading: false,
+        })
+      );
     }
     initWeb3();
   }, []); //called only once when the component is initialized 그래서 []를 2nd arg로 넣은것임..
