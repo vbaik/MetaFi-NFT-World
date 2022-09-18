@@ -15,7 +15,7 @@ export type UseAccountHook = ReturnType<AccountHookFactory>; //return type of Ac
 export const hookFactory: AccountHookFactory =
   ({ provider, ethereum }) =>
   () => {
-    const swrRes = useSWR(
+    const { data, mutate, ...swr } = useSWR(
       provider ? 'web3/useAccount' : null,
       async () => {
         const accounts = await provider!.listAccounts();
@@ -44,10 +44,10 @@ export const hookFactory: AccountHookFactory =
       if (accounts.length === 0) {
         //when we don't have any accounts
         console.error('Please, connect to Web3 wallet');
-      } else if (accounts[0] !== swrRes.data) {
+      } else if (accounts[0] !== data) {
         //if the current account is not the same as the old account
         alert('accounts has changed');
-        console.log('new account --> ', accounts[0]);
+        mutate(accounts[0]); //provide new data to our hook function
       }
     };
 
@@ -60,7 +60,9 @@ export const hookFactory: AccountHookFactory =
     };
 
     return {
-      ...swrRes,
+      ...swr,
+      data,
+      mutate,
       connect,
     };
   };
