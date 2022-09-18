@@ -15,7 +15,7 @@ export type CryptoSWRResponse<D = any> = SWRResponse<D>; //from swr
   export type CryptoHandlerHook = (params: string) => SWRResponse;
 이렇게 써도됨.*/
 export type CryptoHandlerHook<D = any, P = any> = (
-  params: P
+  params?: P
 ) => CryptoSWRResponse<D>;
 
 //type for hookFactory

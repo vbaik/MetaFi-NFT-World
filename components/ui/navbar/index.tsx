@@ -10,7 +10,7 @@ import {
 
 import Link from 'next/link'; //to prevent refreshing when navbar link is clicked
 import ActiveLink from '../link';
-import { useWeb3 } from 'components/providers/web3';
+import { useAccount } from 'components/hooks/web3';
 
 const navigation = [
   { name: 'Marketplace', href: '/', current: true },
@@ -22,10 +22,9 @@ function classNames(...classes: string[]) {
 }
 
 export default function Navbar() {
-  const { hooks } = useWeb3();
-  const { data } = hooks.useAccount('');
+  const { account } = useAccount();
 
-  console.log({ data });
+  console.log(account.data);
 
   return (
     <Disclosure as='nav' className='bg-gray-800'>
