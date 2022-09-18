@@ -1,11 +1,13 @@
 import useSWR from 'swr';
+import { useEffect } from 'react';
+
 import { CryptoHookFactory } from '@_types/hooks';
 
 type UseAccountResponse = {
   connect: () => void; // function that returns nothing.
 };
 
-type AccountHookFactory = CryptoHookFactory<string, UseAccountResponse>; 
+type AccountHookFactory = CryptoHookFactory<string, UseAccountResponse>;
 export type UseAccountHook = ReturnType<AccountHookFactory>; //return type of AccountHookFactory type
 
 // deps means dependencies -> provider, ethereum, contract all from web3State
@@ -29,6 +31,25 @@ export const hookFactory: AccountHookFactory =
         revalidateOnFocus: false,
       }
     );
+
+    useEffect(() => {
+      ethereum?.on('accountsChanged', handleAccountsChanged);
+      return () => {
+        ethereum?.removeListener('accountsChanged', handleAccountsChanged);
+      };
+    });
+
+    const handleAccountsChanged = (...args: unknown[]) => {
+      const accounts = args[0] as string[];
+      if (accounts.length === 0) {
+        //when we don't have any accounts
+        console.error('Please, connect to Web3 wallet');
+      } else if (accounts[0] !== swrRes.data) {
+        //if the current account is not the same as the old account
+        alert('accounts has changed');
+        console.log('new account --> ', accounts[0]);
+      }
+    };
 
     const connect = async () => {
       try {
