@@ -2,9 +2,12 @@ import useSWR from 'swr';
 import { useEffect } from 'react';
 
 import { CryptoHookFactory } from '@_types/hooks';
+import { isValidChainId } from '@metamask/providers/dist/utils';
 
 type UseAccountResponse = {
   connect: () => void; // function that returns nothing.
+  isLoading: boolean; // true of Web3State is loading.
+  isInstalled: boolean; // checks if MetaMask is installed
 };
 
 type AccountHookFactory = CryptoHookFactory<string, UseAccountResponse>;
@@ -13,9 +16,9 @@ export type UseAccountHook = ReturnType<AccountHookFactory>; //return type of Ac
 // deps means dependencies -> provider, ethereum, contract all from web3State
 // hookFactory is a function that returns a function. So the format is () => () => {}
 export const hookFactory: AccountHookFactory =
-  ({ provider, ethereum }) =>
+  ({ provider, ethereum, isLoading }) =>
   () => {
-    const { data, mutate, ...swr } = useSWR(
+    const { data, mutate, isValidating, ...swr } = useSWR(
       provider ? 'web3/useAccount' : null,
       async () => {
         const accounts = await provider!.listAccounts();
@@ -64,5 +67,8 @@ export const hookFactory: AccountHookFactory =
       data,
       mutate,
       connect,
+      isValidating,
+      isLoading: isLoading || isValidating,
+      isInstalled: ethereum?.isMetaMask || false, //true of MetaMask is installed in the browser
     };
   };

@@ -6,6 +6,7 @@ export type Web3Dependencies = {
   provider: providers.Web3Provider; //from ethers
   contract: Contract; //from ethers
   ethereum: MetaMaskInpageProvider; //from metamask
+  isLoading: boolean;
 };
 
 export type CryptoSWRResponse<D = any, R = any> = SWRResponse<D> & R; //from swr
