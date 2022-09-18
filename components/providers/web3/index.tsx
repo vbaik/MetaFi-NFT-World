@@ -27,20 +27,28 @@ const Web3Provider: FunctionComponent<Props> = ({ children }) => {
 
   useEffect(() => {
     async function initWeb3() {
-      const provider = new ethers.providers.Web3Provider(
-        window.ethereum as any
-      );
-      //load contract
-      const contract = await loadContract('NftMarket', provider); //(name of smart contract, provider)
+      try {
+        const provider = new ethers.providers.Web3Provider(
+          window.ethereum as any
+        );
+        //load contract
+        const contract = await loadContract('NftMarket', provider); //(name of smart contract, provider)
 
-      setWeb3Api(
-        createWeb3State({
-          ethereum: window.ethereum, //need to create definition of ethereum in utils.ts
-          provider,
-          contract,
-          isLoading: false,
-        })
-      );
+        setWeb3Api(
+          createWeb3State({
+            ethereum: window.ethereum, //need to create definition of ethereum in utils.ts
+            provider,
+            contract,
+            isLoading: false,
+          })
+        );
+      } catch (e: any) {
+        console.error('No web3 wallet installed --> ', e.message);
+        //create a new web3state (api = previous data from api)
+        setWeb3Api((api) =>
+          createWeb3State({ ...(api as any), isLoading: false })
+        );
+      }
     }
     initWeb3();
   }, []); //called only once when the component is initialized 그래서 []를 2nd arg로 넣은것임..
