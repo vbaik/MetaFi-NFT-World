@@ -47,7 +47,7 @@ export const hookFactory: NetworkHookFactory =
       ...swr,
       data,
       isValidating,
-      isLoading: isLoading || isValidating,
+      isLoading: isLoading as boolean,
       isSupported: data === targetNetwork,
       targetNetwork,
     };

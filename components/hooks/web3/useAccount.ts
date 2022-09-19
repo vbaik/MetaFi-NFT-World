@@ -68,7 +68,7 @@ export const hookFactory: AccountHookFactory =
       mutate,
       connect,
       isValidating,
-      isLoading: isLoading || isValidating,
+      isLoading: isLoading as boolean,
       isInstalled: ethereum?.isMetaMask || false, //true of MetaMask is installed in the browser
     };
   };
