@@ -12,11 +12,16 @@ import {
   createWeb3State,
 } from './utils';
 import { ethers } from 'ethers';
+import { MetaMaskInpageProvider } from '@metamask/providers';
 
 //밑에꺼 꼭 넣어야 children에서 에러안남.
 //In the new version of React, when you pass children, you need to explicitly specify a type for it:
 interface Props {
   children: React.ReactNode;
+}
+
+function pageReload() {
+  window.location.reload();
 }
 
 const Web3Context = createContext<Web3State>(createDefaultState());
@@ -32,6 +37,9 @@ const Web3Provider: FunctionComponent<Props> = ({ children }) => {
         );
         //load contract
         const contract = await loadContract('NftMarket', provider); //(name of smart contract, provider)
+
+        //start listening if there is a chain change.
+        setGlobalListeners(window.ethereum);
 
         setWeb3Api(
           createWeb3State({
@@ -50,7 +58,18 @@ const Web3Provider: FunctionComponent<Props> = ({ children }) => {
       }
     }
     initWeb3();
+
+    //once done listening the chain change, remove the listner.
+    return () => removeGlobalListeners(window.ethereum);
   }, []); //called only once when the component is initialized 그래서 []를 2nd arg로 넣은것임..
+
+  const setGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
+    ethereum.on('chainChanged', pageReload);
+  };
+
+  const removeGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
+    ethereum.removeListener('chainChanged', pageReload);
+  };
 
   return (
     <Web3Context.Provider value={web3Api}>{children}</Web3Context.Provider>
