@@ -20,9 +20,17 @@ interface Props {
   children: React.ReactNode;
 }
 
-function pageReload() {
+const pageReload = () => {
   window.location.reload();
-}
+};
+
+const setGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
+  ethereum.on('chainChanged', pageReload);
+};
+
+const removeGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
+  ethereum.removeListener('chainChanged', pageReload);
+};
 
 const Web3Context = createContext<Web3State>(createDefaultState());
 
@@ -62,14 +70,6 @@ const Web3Provider: FunctionComponent<Props> = ({ children }) => {
     //once done listening the chain change, remove the listner.
     return () => removeGlobalListeners(window.ethereum);
   }, []); //called only once when the component is initialized 그래서 []를 2nd arg로 넣은것임..
-
-  const setGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
-    ethereum.on('chainChanged', pageReload);
-  };
-
-  const removeGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
-    ethereum.removeListener('chainChanged', pageReload);
-  };
 
   return (
     <Web3Context.Provider value={web3Api}>{children}</Web3Context.Provider>
