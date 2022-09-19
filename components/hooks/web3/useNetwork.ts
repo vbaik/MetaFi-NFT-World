@@ -1,8 +1,16 @@
 import useSWR from 'swr';
-import { useEffect } from 'react';
-
 import { CryptoHookFactory } from '@_types/hooks';
-import { isValidChainId } from '@metamask/providers/dist/utils';
+
+const NETWORKS: { [k: string]: string } = {
+  1: 'Ethereum Main Network',
+  3: 'Ropsten Test Network',
+  4: 'Rinkeby Test Network',
+  5: 'Goerli Test Network',
+  42: 'Kovan Test Network',
+  53: 'Coinex Test Network',
+  56: 'Binance Smart Chain',
+  1337: 'Ganache',
+};
 
 type UseNetworkResponse = {
   isLoading: boolean; // true of Web3State is loading.
@@ -17,7 +25,13 @@ export const hookFactory: NetworkHookFactory =
     const { data, isValidating, ...swr } = useSWR(
       provider ? 'web3/useNetwork' : null,
       async () => {
-        return "Testing Network";
+        const chainId = (await provider!.getNetwork()).chainId;
+
+        if (!chainId) {
+          throw 'Cannot retreive network. Please refresh browser or connect to another network.';
+        }
+
+        return NETWORKS[chainId];
       },
       {
         revalidateOnFocus: false,
