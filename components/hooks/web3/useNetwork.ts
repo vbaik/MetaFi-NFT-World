@@ -12,8 +12,13 @@ const NETWORKS: { [k: string]: string } = {
   1337: 'Ganache',
 };
 
+const targetId = process.env.NEXT_PUBLIC_TARGET_CHAIN_ID as string;
+const targetNetwork = NETWORKS[targetId];
+
 type UseNetworkResponse = {
-  isLoading: boolean; // true of Web3State is loading.
+  isLoading: boolean; // true of Web3State is loading.'
+  isSupported: boolean; // shows if the connected network is supported by my app. (currently only supported network is Ganache)
+  targetNetwork: string; //Ganache network (for this app)
 };
 
 type NetworkHookFactory = CryptoHookFactory<string, UseNetworkResponse>;
@@ -43,5 +48,7 @@ export const hookFactory: NetworkHookFactory =
       data,
       isValidating,
       isLoading: isLoading || isValidating,
+      isSupported: data === targetNetwork,
+      targetNetwork,
     };
   };
