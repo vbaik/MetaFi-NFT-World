@@ -1,5 +1,4 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
@@ -20,7 +19,6 @@ export default function Navbar() {
   const { account } = useAccount();
   const { network } = useNetwork();
   console.log('network -->', network);
-  
 
   return (
     <Disclosure as='nav' className='bg-gray-800'>
@@ -39,17 +37,13 @@ export default function Navbar() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
-                <div className='flex flex-shrink-0 items-center'>
+
+              <div className='flex-1 flex items-center justify-center sm:items-stretch sm:justify-start'>
+                <div className='flex-shrink-0 flex items-center'>
                   <img
-                    className='block h-8 w-auto lg:hidden'
-                    src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500'
-                    alt='Your Company'
-                  />
-                  <img
-                    className='hidden h-8 w-auto lg:block'
-                    src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500'
-                    alt='Your Company'
+                    className='hidden lg:block h-10 w-auto'
+                    src='/images/page_logo.png'
+                    alt='Workflow'
                   />
                 </div>
                 <div className='hidden sm:ml-6 sm:block'>

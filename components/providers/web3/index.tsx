@@ -12,7 +12,6 @@ import {
   createWeb3State,
 } from './utils';
 import { ethers } from 'ethers';
-import { setupHooks } from 'components/hooks/web3/setupHooks';
 
 //밑에꺼 꼭 넣어야 children에서 에러안남.
 //In the new version of React, when you pass children, you need to explicitly specify a type for it:

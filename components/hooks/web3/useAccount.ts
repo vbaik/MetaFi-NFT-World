@@ -2,7 +2,6 @@ import useSWR from 'swr';
 import { useEffect } from 'react';
 
 import { CryptoHookFactory } from '@_types/hooks';
-import { isValidChainId } from '@metamask/providers/dist/utils';
 
 type UseAccountResponse = {
   connect: () => void; // function that returns nothing.
