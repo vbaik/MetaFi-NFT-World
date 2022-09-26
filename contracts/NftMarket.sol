@@ -9,11 +9,7 @@ contract NftMarket is ERC721URIStorage {
 
   Counters.Counter private _listedItems; //total number of listed NFT items in the NFTmarket.
   Counters.Counter private _tokenIds; //total number of NFT created from the smart contract.
-  constructor() ERC721("CreaturesNFT", "CNFT") {} // ERC721(쓰고싶은 name of collection of NFTs, token name )
-
-  mapping(string => bool) private _usedTokenURIs; // https://whatever.com => true
-  mapping(uint => NftItem) private _idToNftItem;
-
+  
   struct NftItem {
     uint tokenId;
     uint price;
@@ -28,6 +24,11 @@ contract NftMarket is ERC721URIStorage {
     bool isListed
   );
 
+  mapping(string => bool) private _usedTokenURIs; // https://whatever.com => true
+  mapping(uint => NftItem) private _idToNftItem;
+
+
+  constructor() ERC721("CreaturesNFT", "CNFT") {} // ERC721(쓰고싶은 name of collection of NFTs, token name )
   
   function mintToken(string memory tokenURI, uint price) public payable returns (uint) {
     require(!tokenURIExists(tokenURI), "Token URI already exists");
@@ -45,6 +46,18 @@ contract NftMarket is ERC721URIStorage {
     return newTokenId;
   }
 
+  function getNftItem(uint tokenId) public view returns (NftItem memory) {
+    return _idToNftItem[tokenId];
+  }
+
+  function listedItemsCount() public view returns (uint) {
+    return _listedItems.current();
+  }
+
+  function tokenURIExists(string memory tokenURI) public view returns (bool) {
+    return _usedTokenURIs[tokenURI] == true;
+  }
+
 
   function _createNftItem(uint tokenId, uint price) private {
     require(price > 0, "Price must be at least 1 wei");
@@ -59,16 +72,6 @@ contract NftMarket is ERC721URIStorage {
     emit NftItemCreated(tokenId, price, msg.sender, true);
   }
 
-  function getNftItem(uint tokenId) public view returns (NftItem memory) {
-    return _idToNftItem[tokenId];
-  }
 
-  function listedItemsCount() public view returns (uint) {
-    return _listedItems.current();
-  }
-
-  function tokenURIExists(string memory tokenURI) public view returns (bool) {
-    return _usedTokenURIs[tokenURI] == true;
-  }
 }
 
