@@ -12,9 +12,24 @@ contract NftMarket is ERC721URIStorage {
   constructor() ERC721("CreaturesNFT", "CNFT") {} // ERC721(쓰고싶은 name of collection of NFTs, token name )
 
   mapping(string => bool) private _usedTokenURIs; // https://whatever.com => true
+  mapping(uint => NftItem) private _idToNftItem;
+
+  struct NftItem {
+    uint tokenId;
+    uint price;
+    address creator;
+    bool isListed;
+  }
+
+  event NftItemCreated (
+    uint tokenId,
+    uint price,
+    address creator,
+    bool isListed
+  );
 
   
-  function mintToken(string memory tokenURI) public payable returns (uint) {
+  function mintToken(string memory tokenURI, unit price) public payable returns (uint) {
     require(!tokenURIExists(tokenURI), "Token URI already exists");
 
     _tokenIds.increment();
@@ -25,11 +40,26 @@ contract NftMarket is ERC721URIStorage {
     _safeMint(msg.sender, newTokenId);
     _setTokenURI(newTokenId, tokenURI);
     _usedTokenURIs[tokenURI] = true;
+    _createNftItem(newTokenId, price)
 
-    return newTokenId;
+    return newTokenId;image.png
   }
 
-   function tokenURIExists(string memory tokenURI) public view returns (bool) {
+
+  function _createNftItem(uint tokenId, uint price) private {
+    require(price > 0, "Price must be at least 1 wei");
+
+    _idToNftItem[tokenId] = NftItem(
+      tokenId,
+      price,
+      msg.sender,
+      true
+    );
+
+    emit NftItemCreated(tokenId, price, msg.sender, true);
+  }
+
+  function tokenURIExists(string memory tokenURI) public view returns (bool) {
     return _usedTokenURIs[tokenURI] == true;
   }
 }
