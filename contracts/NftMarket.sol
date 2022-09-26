@@ -10,7 +10,7 @@ contract NftMarket is ERC721URIStorage {
   Counters.Counter private _listedItems; //total number of listed NFT items in the NFTmarket.
   Counters.Counter private _tokenIds; //total number of NFT created from the smart contract.
   
-  uint public listingPrice = 0.025 ether; //cost for listing an item.
+  uint public listingFee = 0.025 ether; //cost for listing an item.
 
   struct NftItem {
     uint tokenId;
@@ -34,7 +34,7 @@ contract NftMarket is ERC721URIStorage {
   
   function mintToken(string memory tokenURI, uint price) public payable returns (uint) {
     require(!tokenURIExists(tokenURI), "Token URI already exists");
-    require(msg.value == listingPrice, "Price must be equal to listing price");
+    require(msg.value == listingFee, "Price must be equal to listing price");
 
     _tokenIds.increment();
     _listedItems.increment();
