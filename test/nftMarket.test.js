@@ -15,7 +15,7 @@ contract('NftMarket', (accounts) => {
     before(async () => {
       await _contract.mintToken(tokenURI, _nftPrice, {
         from: accounts[0], //address that is sending the transaction.
-        value: _listingFee,
+        value: _listingFee, //msg.value
       });
     });
 
