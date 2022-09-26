@@ -13,7 +13,11 @@ contract NftMarket is ERC721URIStorage {
   //private variables:
   Counters.Counter private _listedItems; //total number of listed NFT items in the NFTmarket.
   Counters.Counter private _tokenIds; //total number of NFT created from the smart contract.
+  uint256[] private _allNfts; //store all the tokenIds in an array.
 
+  mapping(string => bool) private _usedTokenURIs; // https://whatever.com => true
+  mapping(uint => NftItem) private _idToNftItem;
+  mapping(uint => uint) private _idToNftIndex; // mapping of tokenId => index in arrray _allNfts
 
   struct NftItem {
     uint tokenId;
@@ -28,10 +32,6 @@ contract NftMarket is ERC721URIStorage {
     address creator,
     bool isListed
   );
-
-  mapping(string => bool) private _usedTokenURIs; // https://whatever.com => true
-  mapping(uint => NftItem) private _idToNftItem;
-
 
   constructor() ERC721("CreaturesNFT", "CNFT") {} // ERC721(쓰고싶은 name of collection of NFTs, token name )
   
@@ -77,7 +77,15 @@ contract NftMarket is ERC721URIStorage {
     _transfer(owner, msg.sender, tokenId);
     payable(owner).transfer(msg.value);
   }
+  
+  function totalSupply() public view returns (uint) {
+    return _allNfts.length;
+  }
 
+  function tokenByIndex(uint index) public view returns (uint) {
+    require(index < totalSupply(), "Index out of bounds");
+    return _allNfts[index]; 
+  }
 
   function _createNftItem(uint tokenId, uint price) private {
     require(price > 0, "Price must be at least 1 wei");
@@ -92,6 +100,23 @@ contract NftMarket is ERC721URIStorage {
     emit NftItemCreated(tokenId, price, msg.sender, true);
   }
 
+  function _beforeTokenTransfer(
+    address from,
+    address to,
+    uint tokenId
+  ) internal virtual override {
+    super._beforeTokenTransfer(from, to, tokenId);
+
+    // minting token
+    if (from == address(0)) {
+      _addTokenToAllTokensEnumaration(tokenId);
+    }
+  }
+
+  function _addTokenToAllTokensEnumaration(uint tokenId) private {
+    _idToNftIndex[tokenId] = _allNfts.length;
+    _allNfts.push(tokenId);
+  }
 
 }
 
