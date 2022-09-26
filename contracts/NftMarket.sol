@@ -29,20 +29,20 @@ contract NftMarket is ERC721URIStorage {
   );
 
   
-  function mintToken(string memory tokenURI, unit price) public payable returns (uint) {
+  function mintToken(string memory tokenURI, uint price) public payable returns (uint) {
     require(!tokenURIExists(tokenURI), "Token URI already exists");
 
     _tokenIds.increment();
-    _listedItems.increment(); 
+    _listedItems.increment();
 
     uint newTokenId = _tokenIds.current();
 
     _safeMint(msg.sender, newTokenId);
     _setTokenURI(newTokenId, tokenURI);
+    _createNftItem(newTokenId, price);
     _usedTokenURIs[tokenURI] = true;
-    _createNftItem(newTokenId, price)
 
-    return newTokenId;image.png
+    return newTokenId;
   }
 
 
@@ -57,6 +57,14 @@ contract NftMarket is ERC721URIStorage {
     );
 
     emit NftItemCreated(tokenId, price, msg.sender, true);
+  }
+
+  function getNftItem(uint tokenId) public view returns (NftItem memory) {
+    return _idToNftItem[tokenId];
+  }
+
+  function listedItemsCount() public view returns (uint) {
+    return _listedItems.current();
   }
 
   function tokenURIExists(string memory tokenURI) public view returns (bool) {
