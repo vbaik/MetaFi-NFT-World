@@ -7,10 +7,13 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract NftMarket is ERC721URIStorage {
   using Counters for Counters.Counter;
 
+  //public variables:
+  uint public listingFee = 0.025 ether; //cost for listing an item.
+ 
+  //private variables:
   Counters.Counter private _listedItems; //total number of listed NFT items in the NFTmarket.
   Counters.Counter private _tokenIds; //total number of NFT created from the smart contract.
-  
-  uint public listingFee = 0.025 ether; //cost for listing an item.
+
 
   struct NftItem {
     uint tokenId;
