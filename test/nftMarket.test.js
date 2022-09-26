@@ -55,12 +55,38 @@ contract('NftMarket', (accounts) => {
     it('should have create NFT item', async () => {
       const nftItem = await _contract.getNftItem(1); //item you would like to get. so far we only created 1 NFT item.
 
-      console.log(nftItem);
-
       assert.equal(nftItem.tokenId, 1, 'Token id is not 1');
       assert.equal(nftItem.price, _nftPrice, 'Nft price is not correct');
       assert.equal(nftItem.creator, accounts[0], 'Creator is not account[0]');
       assert.equal(nftItem.isListed, true, 'Token is not listed');
+    });
+  });
+
+  describe('Buy NFT', () => {
+    before(async () => {
+      await _contract.buyNft(1, {
+        from: accounts[1],
+        value: _nftPrice,
+      });
+    });
+
+    it('should unlist the item', async () => {
+      const listedItem = await _contract.getNftItem(1);
+      assert.equal(listedItem.isListed, false, 'Item is still listed');
+    });
+
+    it('should decrease listed items count', async () => {
+      const listedItemsCount = await _contract.listedItemsCount();
+      assert.equal(
+        listedItemsCount.toNumber(),
+        0,
+        'Count has not been decrement'
+      );
+    });
+
+    it('should change the owner', async () => {
+      const currentOwner = await _contract.ownerOf(1);
+      assert.equal(currentOwner, accounts[1], 'Item is still listed');
     });
   });
 });
