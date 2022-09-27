@@ -16,7 +16,7 @@ contract NftMarket is ERC721URIStorage {
   uint256[] private _allNfts; //store all the tokenIds in an array.
 
   mapping(string => bool) private _usedTokenURIs; // https://whatever.com => true
-  mapping(uint => NftItem) private _idToNftItem;
+  mapping(uint => NftItem) private _idToNftItem; //tokenId => struct NftItem 
   mapping(uint => uint) private _idToNftIndex; // mapping of tokenId => index in arrray _allNfts
 
   struct NftItem {
@@ -85,6 +85,24 @@ contract NftMarket is ERC721URIStorage {
   function tokenByIndex(uint index) public view returns (uint) {
     require(index < totalSupply(), "Index out of bounds");
     return _allNfts[index]; 
+  }
+
+  function getAllNftsForSale() public view returns (NftItem[] memory) {
+    uint allItemsCounts = totalSupply();
+    uint currentIndex = 0;
+    NftItem[] memory items = new NftItem[](_listedItems.current());
+
+    for (uint i = 0; i < allItemsCounts; i++) {
+      uint tokenId = tokenByIndex(i);
+      NftItem storage item = _idToNftItem[tokenId];
+
+      if (item.isListed == true) {
+        items[currentIndex] = item;
+        currentIndex += 1;
+      }
+    }
+    
+    return items; //returns array of all isListed == true items
   }
 
   function _createNftItem(uint tokenId, uint price) private {
