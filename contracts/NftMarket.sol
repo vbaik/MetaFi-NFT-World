@@ -19,6 +19,10 @@ contract NftMarket is ERC721URIStorage {
   mapping(uint => NftItem) private _idToNftItem; //tokenId => struct NftItem 
   mapping(uint => uint) private _idToNftIndex; // mapping of tokenId => index in arrray _allNfts
 
+  //mapping for user and associated NFT items
+  mapping(address => mapping(uint => uint)) private _ownedTokens; // address => {index => tokenId}
+  mapping(uint => uint) private _idToOwnedIndex; // tokenId => index
+
   struct NftItem {
     uint tokenId;
     uint price;
@@ -127,13 +131,24 @@ contract NftMarket is ERC721URIStorage {
 
     // minting token
     if (from == address(0)) {
-      _addTokenToAllTokensEnumaration(tokenId);
+      _addTokenToAllTokensEnumeration(tokenId);
+    }
+    
+    //if to address is not the same as from address
+    if (to != from) {
+      _addTokenToOwnerEnumeration(to, tokenId);
     }
   }
 
-  function _addTokenToAllTokensEnumaration(uint tokenId) private {
+  function _addTokenToAllTokensEnumeration(uint tokenId) private {
     _idToNftIndex[tokenId] = _allNfts.length;
     _allNfts.push(tokenId);
+  }
+
+  function _addTokenToOwnerEnumeration(address to, uint tokenId) private {
+    uint length = ERC721.balanceOf(to); //total number of tokens that the address owns
+    _ownedTokens[to][length] = tokenId; //owner is mapped to tokenId
+    _idToOwnedIndex[tokenId] = length; //tokenId is mapped to length
   }
 
 }
