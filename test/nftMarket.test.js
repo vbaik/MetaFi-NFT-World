@@ -135,5 +135,23 @@ contract('NftMarket', (accounts) => {
       assert.equal(ownedNfts[0].tokenId, 2, 'Nft has a wrong id');
     });
   });
+
+  //to check if deleting and transfering NFT is is working properly.
+  describe('Token transfer to new owner', () => {
+    before(async () => {
+      await _contract.transferFrom(accounts[0], accounts[1], 2);
+    });
+
+    it('accounts[0] should own 0 tokens', async () => {
+      const ownedNfts = await _contract.getOwnedNfts({ from: accounts[0] });
+      console.log('account[0] owned Nfts --->', ownedNfts);
+      assert.equal(ownedNfts.length, 0, 'Invalid length of tokens');
+    });
+
+    it('accounts[1] should own 2 tokens', async () => {
+      const ownedNfts = await _contract.getOwnedNfts({ from: accounts[1] });
+      console.log('account[1] owned Nfts --->', ownedNfts);
+      assert.equal(ownedNfts.length, 2, 'Invalid length of tokens');
+    });
+  });
 });
- 
