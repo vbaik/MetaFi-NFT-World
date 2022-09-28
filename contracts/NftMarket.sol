@@ -3,8 +3,9 @@ pragma solidity >=0.4.22 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract NftMarket is ERC721URIStorage {
+contract NftMarket is ERC721URIStorage, Ownable {
   using Counters for Counters.Counter;
 
   //public variables:
@@ -38,10 +39,17 @@ contract NftMarket is ERC721URIStorage {
   );
 
   constructor() ERC721("CreaturesNFT", "CNFT") {} // ERC721(쓰고싶은 name of collection of NFTs, token name )
+
+  //the function below doesn't seem to make sense. The creator of the NFT should not be able to set the listing fee. 
+
+  function setListingFee(uint newFee) external onlyOwner { //external = only able to call the function from the outside of the contract. And onlyOwner can call it. 
+    require(newFee > 0, "The listing fee must be at least 1 wei");
+    listingFee = newFee;
+  }
   
   function mintToken(string memory tokenURI, uint price) public payable returns (uint) {
     require(!tokenURIExists(tokenURI), "Token URI already exists");
-    require(msg.value == listingFee, "Price must be equal to listing price");
+    require(msg.value == listingFee, "You need to send the right amount of listing fee.");
 
     _tokenIds.increment();
     _listedItems.increment();
@@ -80,6 +88,16 @@ contract NftMarket is ERC721URIStorage {
 
     _transfer(owner, msg.sender, tokenId);
     payable(owner).transfer(msg.value);
+  }
+
+  function placeNftForSale(uint tokenId, uint newPrice) public payable {
+    require(ERC721.ownerOf(tokenId) == msg.sender, "You are not owner of this nft.");
+    require(_idToNftItem[tokenId].isListed == false, "The item is already listed for sale.");
+    require(msg.value == listingFee, "You need to send the right amount of listing fee.");
+
+    _idToNftItem[tokenId].isListed = true; //listed
+    _idToNftItem[tokenId].price = newPrice;
+    _listedItems.increment();
   }
   
   function totalSupply() public view returns (uint) {
