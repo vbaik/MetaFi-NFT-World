@@ -154,4 +154,29 @@ contract('NftMarket', (accounts) => {
       assert.equal(ownedNfts.length, 2, 'Invalid length of tokens');
     });
   });
+
+  //To test listing NFT for sale.
+  describe('List an NFT', () => {
+    before(async () => {
+      console.log('all NFT owned:', (await _contract.totalSupply()).toNumber());
+      await _contract.placeNftForSale(1, _nftPrice, {
+        from: accounts[1], //has to be owner of the tokenId 1
+        value: _listingFee, //pay for listing fee
+      });
+    });
+
+    it('should have two listed items', async () => {
+      const listedNfts = await _contract.getAllNftsForSale();
+      assert.equal(listedNfts.length, 2, 'Invalid length of Nfts');
+    });
+
+    // //below test spec is not applicable since fee should never be set by the owner. It should only be set by the marketplace. So I will comment it out.
+    // it('should set new listing fee', async () => {
+    //   let newFee = ethers.utils.parseEther('0.05').toString();
+    //   await _contract.setListingFee(newFee, { from: accounts[0] });
+    //   const newListingFee = await _contract.listingFee();
+    //   console.log('New listing fee:', newListingFee);
+    //   assert.equal(newListingFee.toString(), newFee, 'Invalid Fee');
+    // });
+  });
 });

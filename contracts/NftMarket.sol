@@ -9,7 +9,7 @@ contract NftMarket is ERC721URIStorage, Ownable {
   using Counters for Counters.Counter;
 
   //public variables:
-  uint public listingFee = 0.025 ether; //cost for listing an item.
+  uint public listingFee = 0.025 ether; //cost for listing an item. --> TODO: make a function so that listingFee = min(0.025 ETH, 2.5% of Price of NFT)
  
   //private variables:
   Counters.Counter private _listedItems; //total number of listed NFT items in the NFTmarket.
@@ -40,12 +40,13 @@ contract NftMarket is ERC721URIStorage, Ownable {
 
   constructor() ERC721("CreaturesNFT", "CNFT") {} // ERC721(쓰고싶은 name of collection of NFTs, token name )
 
-  //the function below doesn't seem to make sense. The creator of the NFT should not be able to set the listing fee. 
+  //the function below doesn't seem to make sense. The creator of the NFT should not be able to set the listing fee. The Marketplace should. So I am going to comment it out.
+  // function setListingFee(uint newFee) external onlyOwner { //external = only able to call the function from the outside of the contract. And onlyOwner can call it. 
+  //   require(newFee > 0, "The listing fee must be at least 1 wei");
+  //   listingFee = newFee;
+  // }
 
-  function setListingFee(uint newFee) external onlyOwner { //external = only able to call the function from the outside of the contract. And onlyOwner can call it. 
-    require(newFee > 0, "The listing fee must be at least 1 wei");
-    listingFee = newFee;
-  }
+
   
   function mintToken(string memory tokenURI, uint price) public payable returns (uint) {
     require(!tokenURIExists(tokenURI), "Token URI already exists");
@@ -101,7 +102,7 @@ contract NftMarket is ERC721URIStorage, Ownable {
   }
   
   function totalSupply() public view returns (uint) {
-    return _allNfts.length;
+    return _allNfts.length; //returns Big Number.
   }
 
   function tokenByIndex(uint index) public view returns (uint) {
