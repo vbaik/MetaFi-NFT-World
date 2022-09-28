@@ -91,6 +91,11 @@ contract NftMarket is ERC721URIStorage {
     return _allNfts[index]; 
   }
 
+  function tokenOfOwnerByIndex(address owner, uint index) public view returns (uint) {
+    require(index < ERC721.balanceOf(owner), "Index out of bounds");
+    return _ownedTokens[owner][index];
+  }
+
   function getAllNftsForSale() public view returns (NftItem[] memory) {
     uint allItemsCounts = totalSupply();
     uint currentIndex = 0;
@@ -107,6 +112,19 @@ contract NftMarket is ERC721URIStorage {
     }
     
     return items; //returns array of all isListed == true items
+  }
+
+  function getOwnedNfts() public view returns (NftItem[] memory) {
+    uint ownedItemsCount = ERC721.balanceOf(msg.sender);
+    NftItem[] memory items = new NftItem[](ownedItemsCount);
+
+    for (uint i = 0; i < ownedItemsCount; i++) {
+      uint tokenId = tokenOfOwnerByIndex(msg.sender, i);
+      NftItem storage item = _idToNftItem[tokenId];
+      items[i] = item;
+    }
+
+    return items;
   }
 
   function _createNftItem(uint tokenId, uint price) private {
