@@ -131,7 +131,7 @@ contract('NftMarket', (accounts) => {
 
     it('account[0] should have one owned NFT', async () => {
       const ownedNfts = await _contract.getOwnedNfts({ from: accounts[0] });
-      console.log(ownedNfts);
+      //   console.log(ownedNfts);
       assert.equal(ownedNfts[0].tokenId, 2, 'Nft has a wrong id');
     });
   });
@@ -144,14 +144,36 @@ contract('NftMarket', (accounts) => {
 
     it('accounts[0] should own 0 tokens', async () => {
       const ownedNfts = await _contract.getOwnedNfts({ from: accounts[0] });
-      console.log('account[0] owned Nfts --->', ownedNfts);
+      //   console.log('account[0] owned Nfts --->', ownedNfts);
       assert.equal(ownedNfts.length, 0, 'Invalid length of tokens');
     });
 
     it('accounts[1] should own 2 tokens', async () => {
       const ownedNfts = await _contract.getOwnedNfts({ from: accounts[1] });
-      console.log('account[1] owned Nfts --->', ownedNfts);
+      //   console.log('account[1] owned Nfts --->', ownedNfts);
       assert.equal(ownedNfts.length, 2, 'Invalid length of tokens');
+    });
+  });
+
+  //to test remove a token from all enumeration functions:
+  describe('Burn Token', () => {
+    const tokenURI = 'https://test-json3.com';
+    before(async () => {
+      await _contract.mintToken(tokenURI, _nftPrice, {
+        from: accounts[2],
+        value: _listingFee,
+      });
+    });
+
+    it('account[2] should have one owned NFT', async () => {
+      const ownedNfts = await _contract.getOwnedNfts({ from: accounts[2] });
+      assert.equal(ownedNfts[0].tokenId, 3, 'Nft has a wrong id');
+    });
+
+    it('account[2] should own 0 NFTs', async () => {
+      await _contract.burnToken(3, { from: accounts[2] });
+      const ownedNfts = await _contract.getOwnedNfts({ from: accounts[2] });
+      assert.equal(ownedNfts.length, 0, 'Invalid length of tokens');
     });
   });
 });

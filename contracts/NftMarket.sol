@@ -127,6 +127,11 @@ contract NftMarket is ERC721URIStorage {
     return items;
   }
 
+  //temporary burn function to test _removeTokenFromAllTokensEnumeration
+  function burnToken(uint tokenId) public {
+    _burn(tokenId); //from ERC721
+  }
+
   function _createNftItem(uint tokenId, uint price) private {
     require(price > 0, "Price must be at least 1 wei");
 
