@@ -153,9 +153,10 @@ contract NftMarket is ERC721URIStorage {
     } else if (from != to) {
       _removeTokenFromOwnerEnumeration(from, tokenId);
     }
-    
-    //if to address is not the same as from address
-    if (to != from) {
+
+    if (to == address(0)) { //만약 받는주소가 0이면 토큰들 다 지워버리기.
+      _removeTokenFromAllTokensEnumeration(tokenId);
+    } else if (to != from) {
       _addTokenToOwnerEnumeration(to, tokenId);
     }
   }
@@ -184,6 +185,19 @@ contract NftMarket is ERC721URIStorage {
 
     delete _idToOwnedIndex[tokenId];
     delete _ownedTokens[from][lastTokenIndex];
+  }
+
+  //remove a certain token from all mapping/iteration functions:
+  function _removeTokenFromAllTokensEnumeration(uint tokenId) private {
+    uint lastTokenIndex = _allNfts.length - 1;
+    uint tokenIndex = _idToNftIndex[tokenId];
+    uint lastTokenId = _allNfts[lastTokenIndex];
+
+    _allNfts[tokenIndex] = lastTokenId;
+    _idToNftIndex[lastTokenId] = tokenIndex;
+
+    delete _idToNftIndex[tokenId];
+    _allNfts.pop();
   }
 
 }
