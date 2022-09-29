@@ -13,6 +13,7 @@ import {
 } from './utils';
 import { ethers } from 'ethers';
 import { MetaMaskInpageProvider } from '@metamask/providers';
+import { NftMarketContract } from '@_types/nftMarketContract';
 
 //밑에꺼 꼭 넣어야 children에서 에러안남.
 //In the new version of React, when you pass children, you need to explicitly specify a type for it:
@@ -63,7 +64,7 @@ const Web3Provider: FunctionComponent<Props> = ({ children }) => {
           createWeb3State({
             ethereum: window.ethereum, //need to create definition of ethereum in utils.ts
             provider,
-            contract,
+            contract: contract as unknown as NftMarketContract,
             isLoading: false,
           })
         );
