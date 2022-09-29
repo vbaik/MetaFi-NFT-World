@@ -1,18 +1,15 @@
 import type { NextPage } from 'next'; //NextPage type is next.js's built-in type that allows to properly type page components
 import { BaseLayout, NftList } from '../components';
-import nftData from '../content/meta.json';
 import { NftMetaData } from '@_types/nft';
-import { useWeb3 } from 'components/providers/web3';
+import { useListedNfts } from 'components/hooks/web3';
 
 const Home: NextPage = () => {
-  const { ethereum, provider, contract, isLoading } = useWeb3(); //from providers/web3/index.tsx const const Web3Context = createContext<Web3State>(createDefaultState());
+  const { nfts } = useListedNfts();
+  console.log('nfts -->', nfts);
+  console.log('nfts.data -->', nfts.data);
 
   return (
     <BaseLayout>
-      {/* {`is loading: ${isLoading}, `}
-      {`ethereum: ${ethereum}, `}
-      {`provider: ${provider}, `}
-      {`contract: ${contract}`} */}
       <div className='relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8'>
         <div className='absolute inset-0'>
           <div className='bg-white h-1/3 sm:h-2/3' />
@@ -26,7 +23,7 @@ const Home: NextPage = () => {
               Mint a NFT to get unlimited ownership forever!
             </p>
           </div>
-          <NftList nftData={nftData as NftMetaData[]} />
+          <NftList nftData={nfts.data} />
         </div>
       </div>
     </BaseLayout>
