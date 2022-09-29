@@ -5,6 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Node-Attach",
+      "port": 9229,
+      "request": "attach",
+      "sourceMaps": true, //for typescript
+      "restart": true, //install nodemon to use this.
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+
+    {
       "type": "chrome",
       "request": "launch",
       "name": "Launch Chrome against localhost",
