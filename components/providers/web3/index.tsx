@@ -57,6 +57,9 @@ const Web3Provider: FunctionComponent<Props> = ({ children }) => {
         //load contract
         const contract = await loadContract('NftMarket', provider); //(name of smart contract, provider)
 
+        const signer = provider.getSigner(); //1st connected account on the MetaMask.
+        const signedContract = contract.connect(signer);
+
         //start listening if there is a chain change.
         setGlobalListeners(window.ethereum);
 
@@ -64,7 +67,7 @@ const Web3Provider: FunctionComponent<Props> = ({ children }) => {
           createWeb3State({
             ethereum: window.ethereum, //need to create definition of ethereum in utils.ts
             provider,
-            contract: contract as unknown as NftMarketContract,
+            contract: signedContract as unknown as NftMarketContract,
             isLoading: false,
           })
         );
