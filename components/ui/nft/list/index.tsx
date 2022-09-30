@@ -4,6 +4,7 @@ import NftItem from '../item';
 
 const NftList: FunctionComponent = () => {
   const { nfts } = useListedNfts();
+  console.log('nfts --->', nfts);
   return (
     <div className='mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none'>
       {nfts.data?.map((nft) => (
@@ -11,7 +12,7 @@ const NftList: FunctionComponent = () => {
           key={nft.meta.image}
           className='flex flex-col rounded-lg shadow-lg overflow-hidden'
         >
-          <NftItem item={nft} />
+          <NftItem item={nft} buyNft={nfts.buyNft} />
         </div>
       ))}
     </div>
