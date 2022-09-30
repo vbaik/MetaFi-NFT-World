@@ -19,8 +19,15 @@ export const useNetwork = () => {
 export const useListedNfts = () => {
   const hooks = useHooks();
   const swrRes = hooks.useListedNfts();
-
   return {
-    nfts: swrRes
-  }
-}
+    nfts: swrRes,
+  };
+};
+
+export const useOwnedNfts = () => {
+  const hooks = useHooks();
+  const swrRes = hooks.useOwnedNfts();
+  return {
+    nfts: swrRes,
+  };
+};
