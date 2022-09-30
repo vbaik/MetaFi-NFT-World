@@ -2,6 +2,7 @@ import { CryptoHookFactory } from '@_types/hooks';
 import { Nft } from '@_types/nft';
 import { ethers } from 'ethers';
 import useSWR from 'swr';
+import { useCallback } from 'react';
 
 type UseOwnedNftsResponse = {
   listNft: (tokenId: number, price: number) => Promise<void>;
@@ -38,21 +39,26 @@ export const hookFactory: OwnedNftsHookFactory =
         return nfts;
       }
     );
-    const listNft = async (tokenId: number, price: number) => {
-      try {
-        const result = await contract?.placeNftForSale(
-          tokenId,
-          ethers.utils.parseEther(price.toString()), //price converted to wei
-          {
-            value: ethers.utils.parseEther((0.025).toString()), //fixed listing fee in wei
-          }
-        );
-        await result?.wait(); //while waiting for the transaction to complete
-        alert('Your NFT has been listed!'); //alert will be displayed.
-      } catch (e: any) {
-        console.error(e.message);
-      }
-    };
+
+    const _contract = contract;
+    const listNft = useCallback(
+      async (tokenId: number, price: number) => {
+        try {
+          const result = await _contract!.placeNftForSale(
+            tokenId,
+            ethers.utils.parseEther(price.toString()), //price converted to wei
+            {
+              value: ethers.utils.parseEther((0.025).toString()), //fixed listing fee in wei
+            }
+          );
+          await result?.wait(); //while waiting for the transaction to complete
+          alert('Your NFT has been listed!'); //alert will be displayed.
+        } catch (e: any) {
+          console.error(e.message);
+        }
+      },
+      [_contract]
+    );
 
     return {
       ...swr,
