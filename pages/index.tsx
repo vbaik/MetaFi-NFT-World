@@ -1,13 +1,7 @@
 import type { NextPage } from 'next'; //NextPage type is next.js's built-in type that allows to properly type page components
 import { BaseLayout, NftList } from '../components';
-import { Nft } from '@_types/nft';
-import { useListedNfts } from 'components/hooks/web3';
 
 const Home: NextPage = () => {
-  const { nfts } = useListedNfts();
-  console.log('nfts -->', nfts);
-  // console.log('nfts.data -->', nfts.data);
-
   return (
     <BaseLayout>
       <div className='relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8'>
@@ -23,7 +17,7 @@ const Home: NextPage = () => {
               Mint a NFT to get unlimited ownership forever!
             </p>
           </div>
-          <NftList nftData={nfts.data as Nft[]} />
+          <NftList />
         </div>
       </div>
     </BaseLayout>
