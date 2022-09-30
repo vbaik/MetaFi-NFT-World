@@ -3,7 +3,9 @@ import { Nft } from '@_types/nft';
 import { ethers } from 'ethers';
 import useSWR from 'swr';
 
-type UseOwnedNftsResponse = {};
+type UseOwnedNftsResponse = {
+  listNft: (tokenId: number, price: number) => Promise<void>;
+};
 type OwnedNftsHookFactory = CryptoHookFactory<Nft[], UseOwnedNftsResponse>;
 
 export type UseOwnedNftsHook = ReturnType<OwnedNftsHookFactory>;
@@ -36,8 +38,25 @@ export const hookFactory: OwnedNftsHookFactory =
         return nfts;
       }
     );
+    const listNft = async (tokenId: number, price: number) => {
+      try {
+        const result = await contract?.placeNftForSale(
+          tokenId,
+          ethers.utils.parseEther(price.toString()), //price converted to wei
+          {
+            value: ethers.utils.parseEther((0.025).toString()), //fixed listing fee in wei
+          }
+        );
+        await result?.wait(); //while waiting for the transaction to complete
+        alert('Your NFT has been listed!'); //alert will be displayed.
+      } catch (e: any) {
+        console.error(e.message);
+      }
+    };
+
     return {
       ...swr,
       data: data || [],
+      listNft,
     };
   };
