@@ -30,6 +30,19 @@ const NftCreate: NextPage = () => {
     setnftMetaData({ ...nftMetaData, [name]: value });
   };
 
+  const handleAttributeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    const attributeIdx = nftMetaData.attributes.findIndex(
+      (attr) => attr.trait_type === name
+    );
+
+    nftMetaData.attributes[attributeIdx].value = value;
+    setnftMetaData({
+      ...nftMetaData,
+      attributes: nftMetaData.attributes,
+    });
+  };
+
   const createNft = () => {
     console.log(nftMetaData);
   };
@@ -259,7 +272,7 @@ const NftCreate: NextPage = () => {
                             {attribute.trait_type}
                           </label>
                           <input
-                            onChange={() => {}}
+                            onChange={handleAttributeChange}
                             value={attribute.value}
                             type='text'
                             name={attribute.trait_type}
