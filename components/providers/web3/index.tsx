@@ -61,7 +61,7 @@ const Web3Provider: FunctionComponent<Props> = ({ children }) => {
         const signedContract = contract.connect(signer);
 
         //start listening if there is a chain change.
-        setGlobalListeners(window.ethereum);
+        setTimeout(() => setGlobalListeners(window.ethereum), 500);
 
         setWeb3Api(
           createWeb3State({
