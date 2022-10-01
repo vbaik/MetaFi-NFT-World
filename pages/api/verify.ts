@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Session } from 'next-iron-session';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { withSession, contractAddress } from './utils';
+import { withSession, contractAddress, addressCheckMiddleware } from './utils';
 import { NftMetaData } from '@_types/nft';
 
 export default withSession(
@@ -22,13 +22,15 @@ export default withSession(
     } else if (req.method === 'POST') {
       try {
         const nft = req.body.nft as NftMetaData;
-
         //need to make sure image, name, description, attributes are inputted in the form.
         if (!nft.name || !nft.description || !nft.attributes) {
-          res
+          return res
             .status(422)
             .send({ message: 'Some of the data are missing in the form!' });
         }
+        //now check the address:
+        await addressCheckMiddleware(req, res);
+
         res.status(200).send({ message: 'NFT has been created' });
       } catch {
         res.status(422).send({ message: 'Cannot create JSON' });

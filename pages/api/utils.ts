@@ -1,5 +1,6 @@
-import { withIronSession } from 'next-iron-session';
+import { withIronSession, Session } from 'next-iron-session';
 import contract from '../../public/contracts/NftMarket.json';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const NETWORKS = {
   '5777': 'Ganache',
@@ -21,3 +22,20 @@ export function withSession(handler: any) {
     },
   });
 }
+
+//to check address we get from POST request:
+export const addressCheckMiddleware = async (
+  req: NextApiRequest & { session: Session },
+  res: NextApiResponse
+) => {
+  return new Promise((resolve, reject) => {
+    const message = req.session.get('message-session');
+    console.log('decoded message --> ', message);
+
+    if (message) {
+      resolve('Correct Address');
+    } else {
+      reject('Wrong Address');
+    }
+  });
+};
