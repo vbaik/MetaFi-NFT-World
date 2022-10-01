@@ -6,6 +6,7 @@ import { BaseLayout } from '../../components';
 import { Switch } from '@headlessui/react';
 import Link from 'next/link';
 import { NftMetaData } from '@_types/nft';
+import axios from 'axios';
 
 const NftCreate: NextPage = () => {
   const [nftURI, setNftURI] = useState(''); //create NFT URI
@@ -43,8 +44,13 @@ const NftCreate: NextPage = () => {
     });
   };
 
-  const createNft = () => {
-    console.log(nftMetaData);
+  const createNft = async () => {
+    try {
+      const messageToSign = await axios.get('/api/verify');
+      // console.log('messageToSign.data---->', messageToSign.data);
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   return (
