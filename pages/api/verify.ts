@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Session } from 'next-iron-session';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withSession, contractAddress } from './utils';
+import { NftMetaData } from '@_types/nft';
 
 export default withSession(
   async (req: NextApiRequest & { session: Session }, res: NextApiResponse) => {
@@ -17,6 +18,20 @@ export default withSession(
         res.json(message);
       } catch {
         res.status(422).send({ message: 'Cannot generate a message!' });
+      }
+    } else if (req.method === 'POST') {
+      try {
+        const nft = req.body.nft as NftMetaData;
+
+        //need to make sure image, name, description, attributes are inputted in the form.
+        if (!nft.name || !nft.description || !nft.attributes) {
+          res
+            .status(422)
+            .send({ message: 'Some of the data are missing in the form!' });
+        }
+        res.status(200).send({ message: 'NFT has been created' });
+      } catch {
+        res.status(422).send({ message: 'Cannot create JSON' });
       }
     } else {
       res.status(200).json({ message: 'Invalid api route' });
