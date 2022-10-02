@@ -19,6 +19,7 @@ type UseNetworkResponse = {
   isLoading: boolean; // true of Web3State is loading.'
   isSupported: boolean; // shows if the connected network is supported by my app. (currently only supported network is Ganache)
   targetNetwork: string; //Ganache network (for this app)
+  isConnectedToNetwork: boolean;
 };
 
 type NetworkHookFactory = CryptoHookFactory<string, UseNetworkResponse>;
@@ -43,12 +44,15 @@ export const hookFactory: NetworkHookFactory =
       }
     );
 
+    const isSupported = data === targetNetwork;
+
     return {
       ...swr,
       data,
       isValidating,
       isLoading: isLoading as boolean,
-      isSupported: data === targetNetwork,
+      isSupported,
+      isConnectedToNetwork: !isLoading && isSupported, //true when we are not loading and network is supported.
       targetNetwork,
     };
   };

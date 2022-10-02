@@ -1,7 +1,12 @@
+import { useNetwork } from 'components/hooks/web3';
 import type { NextPage } from 'next'; //NextPage type is next.js's built-in type that allows to properly type page components
 import { BaseLayout, NftList } from '../components';
 
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
+
 const Home: NextPage = () => {
+  const { network } = useNetwork();
+
   return (
     <BaseLayout>
       <div className='relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8'>
@@ -17,7 +22,32 @@ const Home: NextPage = () => {
               Mint a NFT to get unlimited ownership forever!
             </p>
           </div>
-          <NftList />
+          {network.isConnectedToNetwork ? (
+            <NftList />
+          ) : (
+            <div className='rounded-md bg-yellow-50 p-4 mt-10'>
+              <div className='flex'>
+                <div className='flex-shrink-0'>
+                  <ExclamationCircleIcon
+                    className='h-5 w-5 text-red-400'
+                    aria-hidden='true'
+                  />
+                </div>
+                <div className='ml-3'>
+                  <h3 className='text-sm font-medium text-red-800'>
+                    Attention needed
+                  </h3>
+                  <div className='mt-2 text-sm text-yellow-700'>
+                    <p>
+                      {network.isLoading
+                        ? 'Loading...'
+                        : `Please connect to ${network.targetNetwork} Network`}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </BaseLayout>
