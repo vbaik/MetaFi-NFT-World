@@ -11,9 +11,13 @@ import { useWeb3 } from 'components/providers/web3';
 import { ethers } from 'ethers';
 import { toast } from 'react-toastify'; //notification style
 
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
+import { useNetwork } from 'components/hooks/web3';
+
 const ALLOWED_FIELDS = ['name', 'description', 'image', 'attributes'];
 
 const NftCreate: NextPage = () => {
+  const { network } = useNetwork();
   const { ethereum, contract } = useWeb3();
   const [nftURI, setNftURI] = useState(''); //create NFT URI
   const [hasURI, setHasURI] = useState(false);
@@ -167,6 +171,35 @@ const NftCreate: NextPage = () => {
       console.error(err.message);
     }
   };
+
+  if (!network.isConnectedToNetwork) {
+    return (
+      <BaseLayout>
+        <div className='rounded-md bg-yellow-50 p-4 mt-10'>
+          <div className='flex'>
+            <div className='flex-shrink-0'>
+              <ExclamationCircleIcon
+                className='h-5 w-5 text-red-600'
+                aria-hidden='true'
+              />
+            </div>
+            <div className='ml-3'>
+              <h3 className='text-sm font-medium text-red-800'>
+                Attention needed
+              </h3>
+              <div className='mt-2 text-sm text-yellow-700'>
+                <p>
+                  {network.isLoading
+                    ? 'Loading...'
+                    : `Please onnect to ${network.targetNetwork} Network.`}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </BaseLayout>
+    );
+  }
 
   return (
     <BaseLayout>
