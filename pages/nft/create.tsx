@@ -191,7 +191,7 @@ const NftCreate: NextPage = () => {
                 <p>
                   {network.isLoading
                     ? 'Loading...'
-                    : `Please onnect to ${network.targetNetwork} Network.`}
+                    : `Please onnect to ${network.targetNetwork}.`}
                 </p>
               </div>
             </div>

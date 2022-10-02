@@ -41,7 +41,7 @@ const Home: NextPage = () => {
                     <p>
                       {network.isLoading
                         ? 'Loading...'
-                        : `Please connect to ${network.targetNetwork} Network`}
+                        : `Please connect to ${network.targetNetwork}.`}
                     </p>
                   </div>
                 </div>

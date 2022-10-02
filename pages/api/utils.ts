@@ -10,10 +10,20 @@ const abi = contract.abi;
 
 const NETWORKS = {
   '5777': 'Ganache',
+  '53': 'Coinex-testnet',
 };
 
 type NETWORK = typeof NETWORKS;
 
+const providerRpcUrl =
+  process.env.NODE_ENV === 'production'
+    ? process.env.COINEX_TESTNET_URL
+    : 'http://127.0.0.1:7545';
+
+// const targetNetwork =
+//   process.env.NODE_ENV === 'production'
+//     ? process.env.NEXT_PUBLIC_NETWORK_ID
+//     : '5777';
 const targetNetwork = process.env.NEXT_PUBLIC_NETWORK_ID as keyof NETWORK;
 
 export const contractAddress = contract['networks'][targetNetwork]['address'];
@@ -41,9 +51,7 @@ export const addressCheckMiddleware = async (
     console.log('unsigned message ->', message);
 
     if (message) {
-      const provider = new ethers.providers.JsonRpcProvider(
-        'http://127.0.0.1:7545'
-      );
+      const provider = new ethers.providers.JsonRpcProvider(providerRpcUrl);
 
       //NftMarket contract
       const contract = new ethers.Contract(

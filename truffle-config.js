@@ -1,3 +1,6 @@
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+const keys = require('./keys.json');
+
 module.exports = {
   contracts_build_directory: './public/contracts',
 
@@ -12,6 +15,18 @@ module.exports = {
       host: '127.0.0.1', // Localhost (default: none)
       port: 7545, // 7545 is Ganache Port. Standard Ethereum port is 8545 (default: none)
       network_id: '*', // Any network (default: none)
+    },
+    csc: {
+      provider: () =>
+        new HDWalletProvider(
+          keys.PRIVATE_KEY,
+          'https://testnet-rpc.coinex.net'
+        ),
+      network_id: 53,
+      gas: 5000000,
+      gasPrice: 500000000000,
+      confirmations: 2, //No. of blocks to wait before the deployment
+      timeoutBlocks: 200, //No. blocks before deployment gets timed out.
     },
     // Another network with more advanced options...
     // advanced: {
