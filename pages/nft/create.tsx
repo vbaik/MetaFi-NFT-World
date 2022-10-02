@@ -8,12 +8,12 @@ import Link from 'next/link';
 import { NftMetaData, PinataRes } from '@_types/nft';
 import axios from 'axios';
 import { useWeb3 } from 'components/providers/web3';
-import { errorMonitor } from 'events';
+import { ethers } from 'ethers';
 
 const ALLOWED_FIELDS = ['name', 'description', 'image', 'attributes'];
 
 const NftCreate: NextPage = () => {
-  const { ethereum } = useWeb3();
+  const { ethereum, contract } = useWeb3();
   const [nftURI, setNftURI] = useState(''); //create NFT URI
   const [hasURI, setHasURI] = useState(false);
   const [price, setPrice] = useState('');
@@ -131,7 +131,17 @@ const NftCreate: NextPage = () => {
           throw new Error('Invalid JSON structure');
         }
       });
-      alert('Can create NFT'); //temporary alert. will be deleted later.
+
+      //create NFT
+      const transaction = await contract?.mintToken(
+        nftURI, //link to JSON file
+        ethers.utils.parseEther(price),
+        {
+          value: ethers.utils.parseEther((0.025).toString()), //listing fee
+        }
+      );
+      await transaction?.wait();
+      alert('NFT is created!');
     } catch (err: any) {
       console.error(err.message);
     }
