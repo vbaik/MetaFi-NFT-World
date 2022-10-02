@@ -26,6 +26,7 @@ const NftCreate: NextPage = () => {
     ],
   });
 
+  //below function should be used every time data is sent to server.
   const getSignedData = async () => {
     const messageToSign = await axios.get('/api/verify');
     const accounts = (await ethereum?.request({
@@ -58,6 +59,13 @@ const NftCreate: NextPage = () => {
 
     try {
       const { signedData, account } = await getSignedData();
+      await axios.post('/api/verify-image', {
+        address: account,
+        signature: signedData,
+        bytes, //of the image
+        contentType: file.type, //extension of the image
+        fileName: file.name.replace(/\.[^/.]+$/, ''), //remove the extension portion
+      });
     } catch (err: any) {
       console.error(err.message);
     }

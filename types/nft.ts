@@ -23,11 +23,11 @@ export type Nft = {
   meta: NftMetaData;
 } & NftCore;
 
-// export type FileReq = {
-//   bytes: Uint8Array;
-//   contentType: string;
-//   fileName: string;
-// };
+export type FileReq = {
+  bytes: Uint8Array;
+  contentType: string;
+  fileName: string;
+};
 
 // export type PinataRes = {
 //   IpfsHash: string;
