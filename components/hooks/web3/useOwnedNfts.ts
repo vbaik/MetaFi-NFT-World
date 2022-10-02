@@ -3,6 +3,7 @@ import { Nft } from '@_types/nft';
 import { ethers } from 'ethers';
 import useSWR from 'swr';
 import { useCallback } from 'react';
+import { toast } from 'react-toastify';
 
 type UseOwnedNftsResponse = {
   listNft: (tokenId: number, price: number) => Promise<void>;
@@ -51,8 +52,11 @@ export const hookFactory: OwnedNftsHookFactory =
               value: ethers.utils.parseEther((0.025).toString()), //fixed listing fee in wei
             }
           );
-          await result?.wait(); //while waiting for the transaction to complete
-          alert('Your NFT has been listed!'); //alert will be displayed.
+          await toast.promise(result!.wait(), {
+            pending: 'Processing transaction',
+            success: 'NFT has been listed.',
+            error: 'Processing error',
+          });
         } catch (e: any) {
           console.error(e.message);
         }

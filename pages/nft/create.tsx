@@ -9,6 +9,7 @@ import { NftMetaData, PinataRes } from '@_types/nft';
 import axios from 'axios';
 import { useWeb3 } from 'components/providers/web3';
 import { ethers } from 'ethers';
+import { toast } from 'react-toastify'; //notification style
 
 const ALLOWED_FIELDS = ['name', 'description', 'image', 'attributes'];
 
@@ -63,12 +64,19 @@ const NftCreate: NextPage = () => {
 
     try {
       const { signedData, account } = await getSignedData();
-      const res = await axios.post('/api/verify-image', {
+      const promiseImgRes = axios.post('/api/verify-image', {
         address: account,
         signature: signedData,
         bytes, //of the image
         contentType: file.type, //extension of the image
         fileName: file.name.replace(/\.[^/.]+$/, ''), //remove the extension portion
+      });
+
+      //loading notification:
+      const res = await toast.promise(promiseImgRes, {
+        pending: 'Uploading image',
+        success: 'Image uploaded',
+        error: 'Image upload error',
       });
 
       //extract image from the respoinse that came from Pinata so we can display:
@@ -106,11 +114,19 @@ const NftCreate: NextPage = () => {
     try {
       const { signedData, account } = await getSignedData();
 
-      const res = await axios.post('/api/verify', {
+      const promiseMetadataRes = axios.post('/api/verify', {
         address: account,
         signature: signedData,
         nft: nftMetaData, //data from the form
       });
+
+      //loading notification:
+      const res = await toast.promise(promiseMetadataRes, {
+        pending: 'Uploading metadata',
+        success: 'Metadata uploaded',
+        error: 'Metadata upload error',
+      });
+
       const data = res.data as PinataRes;
       setNftURI(
         `${process.env.NEXT_PUBLIC_PINATA_DOMAIN}/ipfs/${data.IpfsHash}`
@@ -140,8 +156,13 @@ const NftCreate: NextPage = () => {
           value: ethers.utils.parseEther((0.025).toString()), //listing fee
         }
       );
-      await transaction?.wait();
-      alert('NFT is created!');
+
+      //loading notification:
+      await toast.promise(transaction!.wait(), {
+        pending: 'Creating NFT',
+        success: 'NFT successfully minted!',
+        error: 'NFT Minting Error',
+      });
     } catch (err: any) {
       console.error(err.message);
     }
