@@ -1,7 +1,15 @@
 import { FileReq } from '@_types/nft';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Session } from 'next-iron-session';
-import { addressCheckMiddleware, withSession } from './utils';
+import {
+  addressCheckMiddleware,
+  pinataApiKey,
+  pinataSecretApiKey,
+  withSession,
+} from './utils';
+import FormData from 'form-data';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 export default withSession(
   async (req: NextApiRequest & { session: Session }, res: NextApiResponse) => {
@@ -14,11 +22,26 @@ export default withSession(
 
       await addressCheckMiddleware(req, res);
 
-      //   console.log({ fileName });
-      //   console.log({ contentType });
-      //   console.log({ bytes });
-
-      res.status(200).send({ message: 'Image has been created!' });
+      //for uploading image to Pinata
+      const buffer = Buffer.from(Object.values(bytes));
+      const formData = new FormData(); //gets uploaded to Pinata
+      formData.append('file', buffer, {
+        contentType,
+        filename: fileName + '-' + uuidv4(),
+      });
+      const fileRes = await axios.post(
+        'https://api.pinata.cloud/pinning/pinFileToIPFS',
+        formData,
+        {
+          maxBodyLength: Infinity,
+          headers: {
+            'Content-Type': `multipart/form-data; boundary=${formData.getBoundary()}`,
+            pinata_api_key: pinataApiKey,
+            pinata_secret_api_key: pinataSecretApiKey,
+          },
+        }
+      );
+      res.status(200).send(fileRes.data);
     } else {
       res.status(422).send({ message: 'Invalid endpoint' });
     }
