@@ -17,6 +17,8 @@ type NETWORK = typeof NETWORKS;
 const targetNetwork = process.env.NEXT_PUBLIC_NETWORK_ID as keyof NETWORK;
 
 export const contractAddress = contract['networks'][targetNetwork]['address'];
+export const pinataApiKey = process.env.PINATA_API_KEY as string;
+export const pinataSecretApiKey = process.env.PINATA_SECRET_API_KEY as string;
 
 //wrapper function so we can store sessions on the server.
 export function withSession(handler: any) {
