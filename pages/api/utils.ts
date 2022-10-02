@@ -10,6 +10,7 @@ const abi = contract.abi;
 
 const NETWORKS = {
   '5777': 'Ganache',
+  '53': 'Coinex-testnet',
 };
 
 type NETWORK = typeof NETWORKS;
@@ -19,6 +20,10 @@ const providerRpcUrl =
     ? process.env.COINEX_TESTNET_URL
     : 'http://127.0.0.1:7545';
 
+// const targetNetwork =
+//   process.env.NODE_ENV === 'production'
+//     ? process.env.NEXT_PUBLIC_NETWORK_ID
+//     : '5777';
 const targetNetwork = process.env.NEXT_PUBLIC_NETWORK_ID as keyof NETWORK;
 
 export const contractAddress = contract['networks'][targetNetwork]['address'];

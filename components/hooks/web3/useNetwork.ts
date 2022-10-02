@@ -9,7 +9,7 @@ const NETWORKS: { [k: string]: string } = {
   42: 'Kovan Test Network',
   53: 'Coinex Test Network',
   56: 'Binance Smart Chain',
-  1337: 'Ganache',
+  1337: 'Ganache Local Network',
 };
 
 const targetId = process.env.NEXT_PUBLIC_TARGET_CHAIN_ID as string;
