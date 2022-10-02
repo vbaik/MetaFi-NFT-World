@@ -5,7 +5,7 @@ import { useState, ChangeEvent } from 'react';
 import { BaseLayout } from '../../components';
 import { Switch } from '@headlessui/react';
 import Link from 'next/link';
-import { NftMetaData } from '@_types/nft';
+import { NftMetaData, PinataRes } from '@_types/nft';
 import axios from 'axios';
 import { useWeb3 } from 'components/providers/web3';
 
@@ -66,7 +66,13 @@ const NftCreate: NextPage = () => {
         contentType: file.type, //extension of the image
         fileName: file.name.replace(/\.[^/.]+$/, ''), //remove the extension portion
       });
-      console.log('res from handleImage -->', res.data);
+
+      //extract image from the respoinse that came from Pinata so we can display:
+      const data = res.data as PinataRes;
+      setnftMetaData({
+        ...nftMetaData,
+        image: `${process.env.NEXT_PUBLIC_PINATA_DOMAIN}/ipfs/${data.IpfsHash}`,
+      });
     } catch (err: any) {
       console.error(err.message);
     }
@@ -269,12 +275,8 @@ const NftCreate: NextPage = () => {
                       </p>
                     </div>
                     {/* Has Image? */}
-                    {false ? (
-                      <img
-                        src='https://eincode.mypinata.cloud/ipfs/QmaQYCrX9Fg2kGijqapTYgpMXV7QPPzMwGrSRfV9TvTsfM/Creature_1.png'
-                        alt=''
-                        className='h-40'
-                      />
+                    {nftMetaData.image ? (
+                      <img src={nftMetaData.image} alt='' className='h-40' />
                     ) : (
                       <div>
                         <label className='block text-sm font-medium text-gray-700'>
