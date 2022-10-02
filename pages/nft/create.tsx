@@ -8,6 +8,9 @@ import Link from 'next/link';
 import { NftMetaData, PinataRes } from '@_types/nft';
 import axios from 'axios';
 import { useWeb3 } from 'components/providers/web3';
+import { errorMonitor } from 'events';
+
+const ALLOWED_FIELDS = ['name', 'description', 'image', 'attributes'];
 
 const NftCreate: NextPage = () => {
   const { ethereum } = useWeb3();
@@ -98,15 +101,36 @@ const NftCreate: NextPage = () => {
     });
   };
 
-  const createNft = async () => {
+  const uploadMetaData = async () => {
     try {
       const { signedData, account } = await getSignedData();
 
-      await axios.post('/api/verify', {
+      const res = await axios.post('/api/verify', {
         address: account,
         signature: signedData,
         nft: nftMetaData, //data from the form
       });
+      const data = res.data as PinataRes;
+      setNftURI(
+        `${process.env.NEXT_PUBLIC_PINATA_DOMAIN}/ipfs/${data.IpfsHash}`
+      );
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
+
+  const createNft = async () => {
+    try {
+      const nftRes = await axios.get(nftURI);
+      const content = nftRes.data;
+
+      //check if JSON has valid key names
+      Object.keys(content).forEach((key) => {
+        if (!ALLOWED_FIELDS.includes(key)) {
+          throw new Error('Invalid JSON structure');
+        }
+      });
+      alert('Can create NFT'); //temporary alert. will be deleted later.
     } catch (err: any) {
       console.error(err.message);
     }
@@ -206,6 +230,7 @@ const NftCreate: NextPage = () => {
                   </div>
                   <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
                     <button
+                      onClick={createNft}
                       type='button'
                       className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                     >
@@ -350,11 +375,11 @@ const NftCreate: NextPage = () => {
                   </div>
                   <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
                     <button
-                      onClick={createNft}
+                      onClick={uploadMetaData}
                       type='button'
                       className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                     >
-                      List
+                      Upload
                     </button>
                   </div>
                 </div>
