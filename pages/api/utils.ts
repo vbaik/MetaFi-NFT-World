@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { ethers } from 'ethers';
 import { NftMarketContract } from '@_types/nftMarketContract';
+import * as util from 'ethereumjs-util';
 
 const abi = contract.abi;
 
@@ -35,6 +36,7 @@ export const addressCheckMiddleware = async (
 ) => {
   return new Promise(async (resolve, reject) => {
     const message = req.session.get('message-session');
+    console.log('unsigned message ->', message);
 
     if (message) {
       const provider = new ethers.providers.JsonRpcProvider(
@@ -50,9 +52,27 @@ export const addressCheckMiddleware = async (
 
       //to test if we can call functions from the smart contract:
       const name = await contract.name();
-      console.log(name);
 
-      resolve('Correct Address');
+      //unsigned msg formatted to signed message structure:
+      let nonce: string | Buffer =
+        '\x19Ethereum Signed Message:\n' +
+        JSON.stringify(message).length +
+        JSON.stringify(message);
+
+      console.log('reformated msg ->', nonce);
+
+      nonce = util.keccak(Buffer.from(nonce, 'utf-8')); //converted to bytes
+
+      console.log('hashed nonce ->', nonce);
+
+      const { v, r, s } = util.fromRpcSig(req.body.signature); //extract parts of the signature
+      const pubKey = util.ecrecover(util.toBuffer(nonce), v, r, s); //public key of user
+      const addrBuffer = util.pubToAddress(pubKey);
+      const userAddressFromUnsignedMsg = util.bufferToHex(addrBuffer); // from unsigned message
+
+      if (userAddressFromUnsignedMsg === req.body.address) {
+        resolve('Correct Address');
+      }
     } else {
       reject('Wrong Address');
     }
