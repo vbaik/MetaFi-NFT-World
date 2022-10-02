@@ -16,6 +16,7 @@ const NftCreate: NextPage = () => {
   const { ethereum } = useWeb3();
   const [nftURI, setNftURI] = useState(''); //create NFT URI
   const [hasURI, setHasURI] = useState(false);
+  const [price, setPrice] = useState('');
 
   const [nftMetaData, setnftMetaData] = useState<NftMetaData>({
     //default data:
@@ -219,6 +220,8 @@ const NftCreate: NextPage = () => {
                       </label>
                       <div className='mt-1 flex rounded-md shadow-sm'>
                         <input
+                          onChange={(evt) => setPrice(evt.target.value)}
+                          value={price}
                           type='number'
                           name='price'
                           id='price'
