@@ -15,6 +15,7 @@
     "@metamask/providers": "^9.1.0",
     "@openzeppelin/contracts": "^4.7.3",
     "@tailwindcss/forms": "^0.5.3",
+    "@truffle/hdwallet-provider": "^2.0.16",
     "axios": "^0.27.2",
     "ethereumjs-util": "^7.1.5",
     "ethers": "^5.7.0",
