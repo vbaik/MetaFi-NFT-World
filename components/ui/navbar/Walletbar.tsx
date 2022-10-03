@@ -60,9 +60,9 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
                 disabled={true}
                 className='disabled:text-gray-500 text-xs block px-4 pt-2 text-gray-700'
               >
-                {`0x${account[2]}${account[3]}${account[4]}....${account.slice(
+                {/* {`0x${account[2]}${account[3]}${account[4]}....${account.slice(
                   -4
-                )}`}
+                )}`} */}
               </button>
             )}
           </Menu.Item>

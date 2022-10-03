@@ -23,7 +23,7 @@ export default function Navbar() {
     <Disclosure as='nav' className='bg-transparent-800'>
       {({ open }) => (
         <>
-          <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
+          <div className='mx-auto max-w-screen-lg px-2 sm:px-6 lg:px-8'>
             <div className='relative flex h-16 items-center justify-between'>
               <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
                 {/* Mobile menu button*/}
@@ -52,10 +52,10 @@ export default function Navbar() {
                       <ActiveLink
                         href={item.href}
                         key={item.name}
-                        activeClass='bg-gray-900 text-white'
+                        activeClass='bg-transparent-900 text-white'
                       >
                         <a
-                          className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                          className='text-purple-700 hover:bg-purple-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                           aria-current={item.current ? 'page' : undefined}
                         >
                           {item.name}
