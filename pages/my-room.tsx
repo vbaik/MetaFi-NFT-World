@@ -26,7 +26,16 @@ const MyRoom: NextPage = () => {
 
   return (
     <BaseLayout>
-      <Room />
+      <div
+        style={{
+          width: '100vw',
+          height: '100vh',
+          position: 'absolute',
+          left: '0px',
+        }}
+      >
+        <Room />
+      </div>
     </BaseLayout>
   );
 };
