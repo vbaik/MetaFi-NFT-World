@@ -24,7 +24,7 @@ export type Nft = {
 } & NftCore;
 
 export type FileReq = {
-  bytes: Uint8Array;
+  glb: Uint8Array;
   contentType: string;
   fileName: string;
 };

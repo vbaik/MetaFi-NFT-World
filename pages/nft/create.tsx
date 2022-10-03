@@ -13,6 +13,7 @@ import { toast } from 'react-toastify'; //notification style
 
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { useNetwork } from 'components/hooks/web3';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 const ALLOWED_FIELDS = ['name', 'description', 'image', 'attributes'];
 
@@ -63,20 +64,19 @@ const NftCreate: NextPage = () => {
     }
 
     const file = evt.target.files[0];
-    console.log({ file });
     const buffer = await file.arrayBuffer();
-    console.log({ buffer });
-    const bytes = new Uint8Array(buffer);
-    console.log({ bytes });
+    const loader = new GLTFLoader();
+    const modelData = await loader.parseAsync(buffer, '');
+    const bytes = new Uint8Array(modelData);
 
     try {
       const { signedData, account } = await getSignedData();
       const promiseImgRes = axios.post('/api/verify-image', {
         address: account,
         signature: signedData,
-        bytes, //of the image
+        glb: bytes, //of the image
         contentType: file.type, //extension of the image
-        fileName: file.name.replace(/\.[^/.]+$/, ''), //remove the extension portion
+        fileName: file.name.replace(/\.[^/.]+$/, ''), //remove the extension portiont
       });
 
       //loading notification:
