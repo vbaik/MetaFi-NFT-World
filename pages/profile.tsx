@@ -30,7 +30,7 @@ const Profile: NextPage = () => {
         <div className='flex-1 flex flex-col overflow-hidden'>
           <div className='flex-1 flex items-stretch overflow-hidden'>
             <main className='flex-1 overflow-y-auto'>
-              <div className='pt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+              <div className='pt-8 max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='flex'>
                   <h1 className='flex-1 text-2xl font-bold text-gray-900'>
                     Your NFTs
