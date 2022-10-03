@@ -1,42 +1,79 @@
-import React, { useRef, useState, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { Suspense, useEffect, useLayoutEffect } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import {
+  ScrollControls,
+  Sky,
+  useScroll,
+  useGLTF,
+  useAnimations,
+} from '@react-three/drei';
 
-import five from 'public/images/five.png';
-
-function Box(props) {
-  // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef();
-  // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false);
-  const [clicked, click] = useState(false);
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (ref.current.rotation.x += 0.01));
-  // Return the view, these are regular Threejs elements expressed in JSX
+export default function Room() {
   return (
-    <mesh
-      {...props}
-      ref={ref}
-      scale={clicked ? 1.5 : 1}
-      onClick={(event) => click(!clicked)}
-      onPointerOver={(event) => hover(true)}
-      onPointerOut={(event) => hover(false)}
+    <Canvas
+      dpr={[1, 2]}
+      shadows
+      camera={{ position: [0, 0, 10], near: 0.1, far: 1000 }}
     >
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-    </mesh>
+      <ambientLight intensity={0.03} />
+      <fog attach='fog' args={['#ff5020', 5, 18]} />
+      <spotLight
+        angle={0.14}
+        color='#ffd0d0'
+        penumbra={1}
+        position={[25, 50, -20]}
+        shadow-mapSize={[2048, 2048]}
+        shadow-bias={-0.0001}
+        castShadow
+      />
+      <Sky scale={1000} sunPosition={[2, 0.4, 10]} />
+      <Suspense fallback={null}>
+        {/* Wrap contents you want to scroll into <ScrollControls> */}
+        <ScrollControls pages={3}>
+          <LittlestTokyo scale={0.02} position={[0, 2.5, 0]} />
+        </ScrollControls>
+      </Suspense>
+    </Canvas>
   );
 }
 
-const Room = () => {
-  return (
-    <Canvas>
-      <ambientLight />
-      <pointLight position={[10, 10, 10]} />
-      <Box position={[-1.2, 0, 0]} />
-      <Box position={[1.2, 0, 0]} />
-    </Canvas>
+function LittlestTokyo({ ...props }) {
+  // This hook gives you offets, ranges and other useful things
+  const scroll = useScroll();
+  const { scene, nodes, animations } = useGLTF(
+    '3d-models/sketchfab_3d_editor_challenge_littlest_tokyo.glb'
   );
-};
+  const { actions } = useAnimations(animations, scene);
+  useLayoutEffect(() =>
+    Object.values(nodes).forEach(
+      (node) => (node.receiveShadow = node.castShadow = true)
+    )
+  );
+  useEffect(() => void (actions['Take 001'].play().paused = true), [actions]);
+  useFrame((state, delta) => {
+    const action = actions['Take 001'];
+    // The offset is between 0 and 1, you can apply it to your models any way you like
+    const offset = 1 - scroll.offset;
+    action.time = THREE.MathUtils.damp(
+      action.time,
+      (action.getClip().duration / 2) * offset,
+      100,
+      delta
+    );
+    state.camera.position.set(
+      Math.sin(offset) * -10,
+      Math.atan(offset * Math.PI * 2) * 5,
+      Math.cos((offset * Math.PI) / 3) * -10
+    );
+    state.camera.lookAt(0, 0, 0);
+  });
+  return <primitive object={scene} {...props} />;
+}
 
-export default Room;
+/*
+author: glenatron (https://sketchfab.com/glenatron)
+license: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+source: https://sketchfab.com/models/94b24a60dc1b48248de50bf087c0f042
+title: Littlest Tokyo */
+// useGLTF.preload('3d-models/sketchfab_3d_editor_challenge_littlest_tokyo.glb');

@@ -7,7 +7,7 @@ import { useAccount, useNetwork } from 'components/hooks/web3';
 import Walletbar from './Walletbar';
 
 const navigation = [
-  { name: 'Market', href: '/', current: true },
+  { name: 'Market', href: '/market', current: true },
   { name: 'Mint NFT', href: '/nft/create', current: false },
 ];
 
@@ -20,7 +20,7 @@ export default function Navbar() {
   const { network } = useNetwork();
 
   return (
-    <Disclosure as='nav' className='bg-transparent-800'>
+    <Disclosure as='nav' className='bg-transparent'>
       {({ open }) => (
         <>
           <div className='mx-auto max-w-screen-lg px-2 sm:px-6 lg:px-8'>
@@ -39,11 +39,16 @@ export default function Navbar() {
 
               <div className='flex-1 flex items-center justify-center sm:items-stretch sm:justify-start'>
                 <div className='flex-shrink-0 flex items-center'>
-                  <img
-                    className='hidden lg:block h-10 w-auto'
-                    src='/images/page_logo.png'
-                    alt='Workflow'
-                  />
+                  <ActiveLink
+                    href='/'
+                    activeClass='bg-transparent-900 text-white'
+                  >
+                    <img
+                      className='hidden lg:block h-10 w-auto'
+                      src='/images/page_logo.png'
+                      alt='Workflow'
+                    />
+                  </ActiveLink>
                 </div>
                 <div className='hidden sm:ml-6 sm:block'>
                   <div className='flex space-x-4'>

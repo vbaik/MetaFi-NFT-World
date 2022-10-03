@@ -54,18 +54,18 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
         </div>
 
         <Menu.Items className='z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
-          <Menu.Item>
+          {/* <Menu.Item>
             {() => (
               <button
                 disabled={true}
                 className='disabled:text-gray-500 text-xs block px-4 pt-2 text-gray-700'
               >
-                {/* {`0x${account[2]}${account[3]}${account[4]}....${account.slice(
+                {`0x${account[2]}${account[3]}${account[4]}....${account.slice(
                   -4
-                )}`} */}
+                )}`}
               </button>
             )}
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item>
             {({ active }) => (
               <Link href='/profile'>
@@ -76,6 +76,20 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
                   )}
                 >
                   Profile
+                </a>
+              </Link>
+            )}
+          </Menu.Item>
+          <Menu.Item>
+            {({ active }) => (
+              <Link href='/my-room'>
+                <a
+                  className={classNames(
+                    active ? 'bg-gray-100' : '',
+                    'block px-4 py-2 text-sm text-gray-700'
+                  )}
+                >
+                  My Room
                 </a>
               </Link>
             )}

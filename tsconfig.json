@@ -22,7 +22,7 @@
       "@_types/*": ["types/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/ui/threejs/Room.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/room.jsx", "components/ui/threejs/Room.js"],
   "exclude": ["node_modules"],
   "ts-node": {
     "esm": true
