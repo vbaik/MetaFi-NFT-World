@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useGLTF, OrbitControls, ContactShadows } from '@react-three/drei';
+import { Model } from './utils';
 
 export default function Room() {
   return (
@@ -17,9 +18,9 @@ export default function Room() {
   );
 }
 
-function Model({ url, ...props }) {
-  const { scene } = useGLTF(url);
-  return <primitive object={scene} {...props} />;
-}
+// export function Model({ url, ...props }) {
+//   const { scene } = useGLTF(url);
+//   return <primitive object={scene} {...props} />;
+// }
 
 useGLTF.preload('3d-models/room.glb');

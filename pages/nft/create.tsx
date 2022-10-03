@@ -63,8 +63,11 @@ const NftCreate: NextPage = () => {
     }
 
     const file = evt.target.files[0];
+    console.log({ file });
     const buffer = await file.arrayBuffer();
+    console.log({ buffer });
     const bytes = new Uint8Array(buffer);
+    console.log({ bytes });
 
     try {
       const { signedData, account } = await getSignedData();

@@ -9,6 +9,7 @@ import {
 } from '@react-three/drei';
 import { EffectComposer, SSAO } from '@react-three/postprocessing';
 
+
 const particles = Array.from({ length: 150 }, () => ({
   factor: MathUtils.randInt(20, 100),
   speed: MathUtils.randFloat(0.01, 1),

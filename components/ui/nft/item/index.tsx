@@ -1,5 +1,15 @@
 import { FunctionComponent } from 'react';
 import { Nft } from '../../../../types/nft';
+import { Canvas } from '@react-three/fiber';
+import {
+  useGLTF,
+  OrbitControls,
+  ContactShadows,
+  PresentationControls,
+  Bounds,
+  useBounds,
+} from '@react-three/drei';
+import { Model, SelectToZoom } from '@ui/threejs/utils';
 
 type NftItemProps = {
   item: Nft;
@@ -10,15 +20,30 @@ function shortifyAddress(address: string) {
   return `0x****${address.slice(-4)}`;
 }
 
+function Nft3dObject({ url }) {
+  return (
+    <Canvas camera={{ position: [2, -3, 3], fov: 50 }}>
+      <hemisphereLight color='white' groundColor='blue' intensity={0.75} />
+      <spotLight position={[50, 50, 10]} angle={0.15} penumbra={1} />
+      <Bounds fit clip observe margin={1.2}>
+        <SelectToZoom>
+          <Model position={[0, 0.25, 0]} url={url} />
+        </SelectToZoom>
+      </Bounds>
+      <OrbitControls
+        makeDefault
+        minPolarAngle={0}
+        maxPolarAngle={Math.PI / 1.75}
+      />
+    </Canvas>
+  );
+}
+
 const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
   return (
     <div>
       <div className='flex-shrink-0'>
-        <img
-          className={`h-full w-full object-cover`}
-          src={item.meta.image}
-          alt='New NFT'
-        />
+        <Nft3dObject url='https://gateway.pinata.cloud/ipfs/QmQbfg1XbWgsvC8cNpkPiodEXimXXjvLK2kDZHkLDWAGfa' />
       </div>
       <div className='flex-1 bg-white p-6 flex flex-col justify-between'>
         <div className='flex-1'>
