@@ -7,8 +7,8 @@ import { useAccount, useNetwork } from 'components/hooks/web3';
 import Walletbar from './Walletbar';
 
 const navigation = [
-  { name: 'Marketplace', href: '/', current: true },
-  { name: 'Create', href: '/nft/create', current: false },
+  { name: 'Market', href: '/', current: true },
+  { name: 'Mint NFT', href: '/nft/create', current: false },
 ];
 
 function classNames(...classes: string[]) {
@@ -20,7 +20,7 @@ export default function Navbar() {
   const { network } = useNetwork();
 
   return (
-    <Disclosure as='nav' className='bg-gray-800'>
+    <Disclosure as='nav' className='bg-transparent-800'>
       {({ open }) => (
         <>
           <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
