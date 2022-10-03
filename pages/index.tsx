@@ -1,6 +1,6 @@
 import { useNetwork } from 'components/hooks/web3';
 import type { NextPage } from 'next'; //NextPage type is next.js's built-in type that allows to properly type page components
-import { BaseLayout, NftList } from '../components';
+import { BaseLayout, NftList, Room } from '../components';
 
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 
@@ -9,6 +9,7 @@ const Home: NextPage = () => {
 
   return (
     <BaseLayout>
+      <Room />
       <div className='relative bg-white-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8'>
         <div className='absolute inset-0'>
           <div className='bg-white h-1/3 sm:h-2/3' />
