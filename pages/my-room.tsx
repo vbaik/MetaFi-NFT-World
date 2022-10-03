@@ -32,6 +32,7 @@ const MyRoom: NextPage = () => {
           height: '100vh',
           position: 'absolute',
           left: '0px',
+          top: '50px',
         }}
       >
         <Room />
