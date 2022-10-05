@@ -3,15 +3,12 @@ import { Nft } from '../../../../types/nft';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Bounds } from '@react-three/drei';
 import { Model, SelectToZoom } from '@ui/threejs/utils';
+import { shortifyAddress } from '@ui/utils';
 
 type NftItemProps = {
   item: Nft;
   buyNft: (token: number, value: number) => Promise<void>;
 };
-
-function shortifyAddress(address: string) {
-  return `0x****${address.slice(-4)}`;
-}
 
 function Nft3dObject({ url }) {
   return (
