@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { BaseLayout } from '../components';
 import { Nft, NftMetaData } from '@_types/nft';
 import { useOwnedNfts } from 'components/hooks/web3';
+import { LoadNft3dObject } from '@ui/threejs/utils';
 
 const tabs = [{ name: 'Your Collection', href: '#', current: true }];
 
@@ -85,16 +86,7 @@ const Profile: NextPage = () => {
                             'group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 overflow-hidden'
                           )}
                         >
-                          <img
-                            src={nft.meta.image}
-                            alt=''
-                            className={classNames(
-                              nft.tokenId === activeNft?.tokenId
-                                ? ''
-                                : 'group-hover:opacity-75',
-                              'object-cover pointer-events-none'
-                            )}
-                          />
+                          <LoadNft3dObject url={nft.meta.image} />
                           <button
                             type='button'
                             className='absolute inset-0 focus:outline-none'

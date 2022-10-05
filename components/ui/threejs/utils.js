@@ -1,5 +1,7 @@
 import { useGLTF } from '@react-three/drei';
 import { useBounds } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Bounds } from '@react-three/drei';
 
 export function Model({ url, ...props }) {
   const { scene } = useGLTF(url);
@@ -17,5 +19,24 @@ export function SelectToZoom({ children }) {
     >
       {children}
     </group>
+  );
+}
+
+export function LoadNft3dObject({ url }) {
+  return (
+    <Canvas camera={{ position: [2, -3, 3], fov: 50 }}>
+      <hemisphereLight color='white' groundColor='blue' intensity={0.75} />
+      <spotLight position={[50, 50, 10]} angle={0.15} penumbra={1} />
+      <Bounds fit clip observe margin={1.2}>
+        <SelectToZoom>
+          <Model position={[0, 0.25, 0]} url={url} />
+        </SelectToZoom>
+      </Bounds>
+      <OrbitControls
+        makeDefault
+        minPolarAngle={0}
+        maxPolarAngle={Math.PI / 1.75}
+      />
+    </Canvas>
   );
 }
