@@ -13,8 +13,9 @@ import { toast } from 'react-toastify'; //notification style
 
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { useNetwork } from 'components/hooks/web3';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-const ALLOWED_FIELDS = ['name', 'description', 'image', 'attributes'];
+const ALLOWED_FIELDS = ['name', 'description', 'image'];
 
 const NftCreate: NextPage = () => {
   const { network } = useNetwork();
@@ -28,11 +29,6 @@ const NftCreate: NextPage = () => {
     name: '',
     description: '',
     image: '',
-    attributes: [
-      { trait_type: 'attack', value: '0' },
-      { trait_type: 'health', value: '0' },
-      { trait_type: 'speed', value: '0' },
-    ],
   });
 
   //below function should be used every time data is sent to server.
@@ -62,18 +58,21 @@ const NftCreate: NextPage = () => {
       return;
     }
 
+    //todo: figure out how to parse and load glb file!!!!!
     const file = evt.target.files[0];
     const buffer = await file.arrayBuffer();
-    const bytes = new Uint8Array(buffer);
+    const loader = new GLTFLoader();
+    const modelData = await loader.parseAsync(buffer, '');
+    const bytes = new Uint8Array(modelData);
 
     try {
       const { signedData, account } = await getSignedData();
       const promiseImgRes = axios.post('/api/verify-image', {
         address: account,
         signature: signedData,
-        bytes, //of the image
+        glb: bytes, //of the image
         contentType: file.type, //extension of the image
-        fileName: file.name.replace(/\.[^/.]+$/, ''), //remove the extension portion
+        fileName: file.name.replace(/\.[^/.]+$/, ''), //remove the extension portiont
       });
 
       //loading notification:
@@ -99,19 +98,6 @@ const NftCreate: NextPage = () => {
   ) => {
     const { name, value } = event.target;
     setnftMetaData({ ...nftMetaData, [name]: value });
-  };
-
-  const handleAttributeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    const attributeIdx = nftMetaData.attributes.findIndex(
-      (attr) => attr.trait_type === name
-    );
-
-    nftMetaData.attributes[attributeIdx].value = value;
-    setnftMetaData({
-      ...nftMetaData,
-      attributes: nftMetaData.attributes,
-    });
   };
 
   const uploadMetaData = async () => {
@@ -372,7 +358,7 @@ const NftCreate: NextPage = () => {
                     ) : (
                       <div>
                         <label className='block text-sm font-medium text-gray-700'>
-                          NFT Image
+                          NFT 3D Asset
                         </label>
                         <div className='mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md'>
                           <div className='space-y-1 text-center'>
@@ -407,38 +393,12 @@ const NftCreate: NextPage = () => {
                               <p className='pl-1'>or drag and drop</p>
                             </div>
                             <p className='text-xs text-gray-500'>
-                              PNG, JPG, GIF up to 10MB
+                              GLB up to 10MB
                             </p>
                           </div>
                         </div>
                       </div>
                     )}
-                    <div className='grid grid-cols-6 gap-6'>
-                      {nftMetaData.attributes.map((attribute) => (
-                        <div
-                          key={attribute.trait_type}
-                          className='col-span-6 sm:col-span-6 lg:col-span-2'
-                        >
-                          <label
-                            htmlFor={attribute.trait_type}
-                            className='block text-sm font-medium text-gray-700'
-                          >
-                            {attribute.trait_type}
-                          </label>
-                          <input
-                            onChange={handleAttributeChange}
-                            value={attribute.value}
-                            type='text'
-                            name={attribute.trait_type}
-                            id={attribute.trait_type}
-                            className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
-                          />
-                        </div>
-                      ))}
-                    </div>
-                    <p className='text-sm !mt-2 text-gray-500'>
-                      Choose value from 0 to 100
-                    </p>
                   </div>
                   <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
                     <button

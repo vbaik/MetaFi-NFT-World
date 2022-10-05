@@ -14,18 +14,18 @@ import { v4 as uuidv4 } from 'uuid';
 export default withSession(
   async (req: NextApiRequest & { session: Session }, res: NextApiResponse) => {
     if (req.method === 'POST') {
-      const { bytes, fileName, contentType } = req.body as FileReq;
+      const { glb, fileName, contentType } = req.body as FileReq;
 
-      if (!bytes || !fileName || !contentType) {
+      if (!glb || !fileName || !contentType) {
         return res.status(422).send({ message: 'Image data are missing' });
       }
 
       await addressCheckMiddleware(req, res);
 
       //for uploading image to Pinata
-      const buffer = Buffer.from(Object.values(bytes));
+      // const buffer = Buffer.from(Object.values(file));
       const formData = new FormData(); //gets uploaded to Pinata
-      formData.append('file', buffer, {
+      formData.append('file', glb, {
         contentType,
         filename: fileName + '-' + uuidv4(),
       });

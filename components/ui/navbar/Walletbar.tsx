@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react';
 import { Menu } from '@headlessui/react';
 import Link from 'next/link';
+import { shortifyAddress } from '@ui/utils';
 
 type WalletbarProps = {
   isLoading: boolean;
@@ -43,29 +44,12 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
     return (
       <Menu as='div' className='ml-3 relative'>
         <div>
-          <Menu.Button className='bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
-            <span className='sr-only'>Open user menu</span>
-            <img
-              className='h-8 w-8 rounded-full'
-              src='/images/default_user_image.png'
-              alt=''
-            />
+          <Menu.Button className='inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'>
+            {shortifyAddress(account)}
           </Menu.Button>
         </div>
 
         <Menu.Items className='z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
-          {/* <Menu.Item>
-            {() => (
-              <button
-                disabled={true}
-                className='disabled:text-gray-500 text-xs block px-4 pt-2 text-gray-700'
-              >
-                {`0x${account[2]}${account[3]}${account[4]}....${account.slice(
-                  -4
-                )}`}
-              </button>
-            )}
-          </Menu.Item> */}
           <Menu.Item>
             {({ active }) => (
               <Link href='/profile'>

@@ -9,6 +9,7 @@ import {
 } from '@react-three/drei';
 import { EffectComposer, SSAO } from '@react-three/postprocessing';
 
+
 const particles = Array.from({ length: 150 }, () => ({
   factor: MathUtils.randInt(20, 100),
   speed: MathUtils.randFloat(0.01, 1),
@@ -19,7 +20,7 @@ const particles = Array.from({ length: 150 }, () => ({
 
 export default function LandingPage() {
   return (
-    <Canvas
+    <Canvas style={{position: 'fixed', top: '0px', zIndex: '-1'}}
       shadows
       dpr={[1, 2]}
       gl={{ antialias: false }}
