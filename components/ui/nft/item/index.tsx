@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import { Nft } from '../../../../types/nft';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Bounds } from '@react-three/drei';
-import { Model, SelectToZoom } from '@ui/threejs/utils';
+import { Model, SelectToZoom, LoadNft3dObject } from '@ui/threejs/utils';
 import { shortifyAddress } from '@ui/utils';
 
 type NftItemProps = {
@@ -10,30 +10,11 @@ type NftItemProps = {
   buyNft: (token: number, value: number) => Promise<void>;
 };
 
-function Nft3dObject({ url }) {
-  return (
-    <Canvas camera={{ position: [2, -3, 3], fov: 50 }}>
-      <hemisphereLight color='white' groundColor='blue' intensity={0.75} />
-      <spotLight position={[50, 50, 10]} angle={0.15} penumbra={1} />
-      <Bounds fit clip observe margin={1.2}>
-        <SelectToZoom>
-          <Model position={[0, 0.25, 0]} url={url} />
-        </SelectToZoom>
-      </Bounds>
-      <OrbitControls
-        makeDefault
-        minPolarAngle={0}
-        maxPolarAngle={Math.PI / 1.75}
-      />
-    </Canvas>
-  );
-}
-
 const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
   return (
     <div>
       <div className='flex-shrink-0'>
-        <Nft3dObject url={item.meta.image} />
+        <LoadNft3dObject url={item.meta.image} />
       </div>
       <div className='flex-1 bg-white p-6 flex flex-col justify-between'>
         <div className='flex-1'>

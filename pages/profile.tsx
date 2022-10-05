@@ -85,7 +85,7 @@ const Profile: NextPage = () => {
                             'group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 overflow-hidden'
                           )}
                         >
-                          <img
+                          {/* <img
                             src={nft.meta.image}
                             alt=''
                             className={classNames(
@@ -94,7 +94,8 @@ const Profile: NextPage = () => {
                                 : 'group-hover:opacity-75',
                               'object-cover pointer-events-none'
                             )}
-                          />
+                          /> */}
+                          
                           <button
                             type='button'
                             className='absolute inset-0 focus:outline-none'
