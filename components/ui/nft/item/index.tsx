@@ -1,8 +1,6 @@
 import { FunctionComponent } from 'react';
 import { Nft } from '../../../../types/nft';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Bounds } from '@react-three/drei';
-import { Model, SelectToZoom, LoadNft3dObject } from '@ui/threejs/utils';
+import { LoadNft3dObject } from '@ui/threejs/utils';
 import { shortifyAddress } from '@ui/utils';
 
 type NftItemProps = {
