@@ -33,7 +33,7 @@ const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
   return (
     <div>
       <div className='flex-shrink-0'>
-        <Nft3dObject url='https://gateway.pinata.cloud/ipfs/QmQbfg1XbWgsvC8cNpkPiodEXimXXjvLK2kDZHkLDWAGfa' />
+        <Nft3dObject url={item.meta.image} />
       </div>
       <div className='flex-1 bg-white p-6 flex flex-col justify-between'>
         <div className='flex-1'>
