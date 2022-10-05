@@ -30,7 +30,7 @@ export default withSession(
       try {
         const nft = req.body.nft as NftMetaData;
         //need to make sure image, name, description, attributes are inputted in the form.
-        if (!nft.name || !nft.description || !nft.attributes) {
+        if (!nft.name || !nft.description) {
           return res
             .status(422)
             .send({ message: 'Some of the data are missing in the form!' });
