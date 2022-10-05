@@ -63,6 +63,7 @@ const NftCreate: NextPage = () => {
       return;
     }
 
+    //todo: figure out how to parse and load glb file!!!!!
     const file = evt.target.files[0];
     const buffer = await file.arrayBuffer();
     const loader = new GLTFLoader();

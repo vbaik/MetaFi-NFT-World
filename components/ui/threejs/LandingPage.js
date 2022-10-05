@@ -20,7 +20,7 @@ const particles = Array.from({ length: 150 }, () => ({
 
 export default function LandingPage() {
   return (
-    <Canvas
+    <Canvas style={{position: 'fixed', top: '0px', zIndex: '-1'}}
       shadows
       dpr={[1, 2]}
       gl={{ antialias: false }}
