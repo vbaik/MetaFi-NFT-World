@@ -43,7 +43,7 @@ export default withSession(
           'https://api.pinata.cloud/pinning/pinJSONToIPFS',
           {
             pinataMetadata: {
-              name: uuidv4(), //any custom name you want
+              name: req.body.name + uuidv4(), //any custom name you want
             },
             pinataContent: nft,
           },
