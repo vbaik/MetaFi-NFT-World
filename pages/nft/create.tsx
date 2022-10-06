@@ -195,128 +195,127 @@ const NftCreate: NextPage = () => {
 
   return (
     <BaseLayout>
-      <div>
+      <div className='max-w-lg mx-auto'>
+        <h2 className='my-8 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-300 sm:text-4xl text-center'>
+          List NFT to Market
+        </h2>
         {hasURI ? (
-          <div className='md:grid md:grid-cols-3 md:gap-6'>
-            <div className='mt-5 md:mt-0 md:col-span-2'>
-              <form>
-                <div className='shadow sm:rounded-md sm:overflow-hidden'>
-                  <div className='px-4 py-5 bg-white space-y-6 sm:p-6'>
-                    <LoadNft3dObject url={nftMetaData.image} />
+          <div className='max-w-lg'>
+            <form>
+              <div className='shadow sm:rounded-md sm:overflow-hidden'>
+                <div className='px-4 py-5 bg-white space-y-6 sm:p-6'>
+                  <LoadNft3dObject url={nftMetaData.image} />
+                  <div>
+                    <div className='font-bold'>Your metadata: </div>
                     <div>
-                      <div className='font-bold'>Your metadata: </div>
-                      <div>
-                        <Link href={nftURI}>
-                          <a className='underline text-indigo-600'>{nftURI}</a>
-                        </Link>
-                      </div>
-                      <label htmlFor='price' className='font-bold'>
-                        Price (CET)
-                      </label>
-                      <div className='mt-1 flex rounded-md shadow-sm'>
-                        <input
-                          onChange={(evt) => setPrice(evt.target.value)}
-                          value={price}
-                          type='number'
-                          name='price'
-                          id='price'
-                          className='focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300'
-                          placeholder='ex) 10'
-                        />
-                      </div>
+                      <Link href={nftURI}>
+                        <a className='underline text-pink-600'>{nftURI}</a>
+                      </Link>
+                    </div>
+                    <label htmlFor='price' className='font-bold'>
+                      Price (CET)
+                    </label>
+                    <div className='mt-1 flex rounded-md shadow-sm'>
+                      <input
+                        onChange={(evt) => setPrice(evt.target.value)}
+                        value={price}
+                        type='number'
+                        name='price'
+                        id='price'
+                        className='focus:ring-pink-500 focus:border-pink-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300'
+                        placeholder='ex) 10'
+                      />
                     </div>
                   </div>
-                  <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
-                    <button
-                      onClick={createNft}
-                      type='button'
-                      className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
-                    >
-                      Mint NFT
-                    </button>
-                  </div>
                 </div>
-              </form>
-            </div>
+                <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
+                  <button
+                    onClick={createNft}
+                    type='button'
+                    className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-500 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-600'
+                  >
+                    Mint NFT
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         ) : (
-          <div className='md:grid md:grid-cols-3 md:gap-6'>
-            <div className='mt-5 md:mt-0 md:col-span-2'>
-              <form>
-                <div className='shadow sm:rounded-md sm:overflow-hidden'>
-                  <div className='px-4 py-5 bg-white space-y-6 sm:p-6'>
-                    <div>
-                      <label
-                        htmlFor='name'
-                        className='block text-sm font-medium text-gray-700'
-                      >
-                        Name
-                      </label>
-                      <div className='mt-1 flex rounded-md shadow-sm'>
-                        <input
-                          value={nftMetaData.name}
-                          onChange={handleChange}
-                          type='text'
-                          name='name'
-                          id='name'
-                          className='focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300'
-                          placeholder='Your NFT Name'
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label
-                        htmlFor='description'
-                        className='block text-sm font-medium text-gray-700'
-                      >
-                        Description
-                      </label>
-                      <div className='mt-1'>
-                        <textarea
-                          value={nftMetaData.description}
-                          onChange={handleChange}
-                          id='description'
-                          name='description'
-                          rows={3}
-                          className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md'
-                          placeholder='Write some awesome texts about your NFT!'
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className='block text-sm font-medium text-gray-700'>
-                        NFT 3D Asset URL Link
-                      </label>
-                      <div className='mt-1 flex rounded-md shadow-sm'>
-                        <input
-                          onChange={handleChange}
-                          type='text'
-                          name='image'
-                          id='image'
-                          className='focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300'
-                          placeholder='ex) http://link.com/asset.glb'
-                        />
-                      </div>
-                      {nftMetaData.image ? (
-                        <LoadNft3dObject url={nftMetaData.image} />
-                      ) : (
-                        <></>
-                      )}
+          <div className='max-w-lg'>
+            <form>
+              <div className='shadow sm:rounded-md sm:overflow-hidden'>
+                <div className='px-4 py-5 bg-white space-y-6 sm:p-6'>
+                  <div>
+                    <label
+                      htmlFor='name'
+                      className='block text-sm font-medium text-gray-700'
+                    >
+                      Name
+                    </label>
+                    <div className='mt-1 flex rounded-md shadow-sm'>
+                      <input
+                        value={nftMetaData.name}
+                        onChange={handleChange}
+                        type='text'
+                        name='name'
+                        id='name'
+                        className='focus:ring-pink-500 focus:border-pink-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300'
+                        placeholder='Your NFT Name'
+                      />
                     </div>
                   </div>
-                  <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
-                    <button
-                      onClick={uploadMetaData}
-                      type='button'
-                      className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
+                  <div>
+                    <label
+                      htmlFor='description'
+                      className='block text-sm font-medium text-gray-700'
                     >
-                      Upload
-                    </button>
+                      Description
+                    </label>
+                    <div className='mt-1'>
+                      <textarea
+                        value={nftMetaData.description}
+                        onChange={handleChange}
+                        id='description'
+                        name='description'
+                        rows={3}
+                        className='shadow-sm focus:ring-pink-500 focus:border-pink-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md'
+                        placeholder='Write some awesome texts about your NFT!'
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className='block text-sm font-medium text-gray-700'>
+                      NFT 3D Asset URL Link
+                    </label>
+                    <div className='mt-1 flex rounded-md shadow-sm'>
+                      <input
+                        onChange={handleChange}
+                        type='text'
+                        name='image'
+                        id='image'
+                        className='focus:ring-pink-500 focus:border-pink-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300'
+                        placeholder='ex) http://link.com/asset.glb'
+                      />
+                    </div>
+                    {nftMetaData.image ? (
+                      <LoadNft3dObject url={nftMetaData.image} />
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
-              </form>
-            </div>
+                <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
+                  <button
+                    onClick={uploadMetaData}
+                    type='button'
+                    className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-500 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-600'
+                  >
+                    Upload
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         )}
       </div>

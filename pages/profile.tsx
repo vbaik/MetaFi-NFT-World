@@ -7,7 +7,7 @@ import { Nft, NftMetaData } from '@_types/nft';
 import { useOwnedNfts } from 'components/hooks/web3';
 import { LoadNft3dObject } from '@ui/threejs/utils';
 
-const tabs = [{ name: 'Your Collection', href: '#', current: true }];
+const tabs = [{ name: 'My Collection', href: '#', current: true }];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -34,7 +34,7 @@ const Profile: NextPage = () => {
               <div className='pt-8 max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='flex'>
                   <h1 className='flex-1 text-2xl font-bold text-gray-900'>
-                    Your NFTs
+                    My NFTs
                   </h1>
                 </div>
                 <div className='mt-3 sm:mt-2'>
@@ -51,7 +51,7 @@ const Profile: NextPage = () => {
                             aria-current={tab.current ? 'page' : undefined}
                             className={classNames(
                               tab.current
-                                ? 'border-indigo-500 text-indigo-600'
+                                ? 'border-pink-500 text-pink-600'
                                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
                               'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
                             )}
@@ -81,8 +81,8 @@ const Profile: NextPage = () => {
                         <div
                           className={classNames(
                             nft.tokenId === activeNft?.tokenId
-                              ? 'ring-2 ring-offset-2 ring-indigo-500' //nft is already active so display this
-                              : 'focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500',
+                              ? 'ring-2 ring-offset-2 ring-amber-300' //nft is already active so display this
+                              : 'focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-amber-300',
                             'group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 overflow-hidden'
                           )}
                         >
@@ -112,11 +112,7 @@ const Profile: NextPage = () => {
                 <div className='pb-16 space-y-6'>
                   <div>
                     <div className='block w-full aspect-w-10 aspect-h-7 rounded-lg overflow-hidden'>
-                      <img
-                        src={activeNft.meta.image}
-                        alt=''
-                        className='object-cover'
-                      />
+                      {/* <LoadNft3dObject url={activeNft.meta.image} /> */}
                     </div>
                     <div className='mt-4 flex items-start justify-between'>
                       <div>
@@ -138,7 +134,7 @@ const Profile: NextPage = () => {
                         nfts.listNft(activeNft.tokenId, activeNft.price); //Todo: price should be able to set by the user.
                       }}
                       type='button'
-                      className='disabled:text-gray-400 disabled:cursor-not-allowed flex-1 ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                      className='disabled:text-gray-400 disabled:cursor-not-allowed flex-1 ml-3 bg-amber-500 disabled:bg-gray-300 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-600'
                     >
                       {activeNft.isListed ? 'Already Listed' : 'List NFT'}
                     </button>

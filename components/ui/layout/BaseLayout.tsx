@@ -11,7 +11,7 @@ const BaseLayout: FunctionComponent<Props> = ({ children }) => {
     <>
       <Navbar />
 
-      <div className="py-16 bg-white-50 overflow-hidden min-h-screen">
+      <div className="py-16  bg-neutral-100 overflow-hidden min-h-screen">
         <div className="max-w-screen-lg mx-auto px-4 space-y-8 sm:px-6 lg:px-8">
           {children}
         </div>
