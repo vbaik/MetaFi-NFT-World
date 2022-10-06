@@ -6,7 +6,7 @@ const NftList: FunctionComponent = () => {
   const { nfts } = useListedNfts();
   console.log('nfts --->', nfts);
   return (
-    <div className='mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none'>
+    <div className='mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none md:grid-cols-2'>
       {nfts.data?.map((nft) => (
         <div
           key={nft.meta.image}

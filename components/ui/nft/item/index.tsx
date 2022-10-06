@@ -34,7 +34,7 @@ const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
         </div>
         <div>
           <div className='flex justify-between'>
-            <p className='text-xl font-extrabold text-indigo-600'>
+            <p className='text-xl font-extrabold text-pink-600'>
               {`${item.price} CET`}
             </p>
             <button
@@ -42,7 +42,7 @@ const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
                 buyNft(item.tokenId, item.price);
               }}
               type='button'
-              className='disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none disabled:cursor-not-allowed mr-2 inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+              className='disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none disabled:cursor-not-allowed mr-2 inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-pink-500 hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500'
             >
               Buy
             </button>

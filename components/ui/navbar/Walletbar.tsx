@@ -44,7 +44,7 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
     return (
       <Menu as='div' className='ml-3 relative'>
         <div>
-          <Menu.Button className='inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'>
+          <Menu.Button className='inline-flex w-full justify-center rounded-md bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'>
             {shortifyAddress(account)}
           </Menu.Button>
         </div>
