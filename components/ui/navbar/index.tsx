@@ -1,4 +1,5 @@
-/* This example requires Tailwind CSS v2.0+ */
+/* eslint-disable @next/next/no-img-element */
+
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
