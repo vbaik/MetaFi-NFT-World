@@ -45,7 +45,7 @@ export default function Navbar() {
                   >
                     <img
                       className='hidden lg:block h-10 w-auto'
-                      src='/images/page_logo.png'
+                      src='/images/NFTWORLD-logo.png'
                       alt='Workflow'
                     />
                   </ActiveLink>
