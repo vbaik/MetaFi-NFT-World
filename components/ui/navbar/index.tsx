@@ -7,7 +7,7 @@ import { useAccount, useNetwork } from 'components/hooks/web3';
 import Walletbar from './Walletbar';
 
 const navigation = [
-  { name: 'Market', href: '/market', current: true },
+  { name: 'NFT Market', href: '/market', current: true },
   { name: 'Mint NFT', href: '/nft/create', current: false },
 ];
 
@@ -45,7 +45,7 @@ export default function Navbar() {
                   >
                     <img
                       className='hidden lg:block h-10 w-auto'
-                      src='/images/page_logo.png'
+                      src='/images/NFTWORLD-logo.png'
                       alt='Workflow'
                     />
                   </ActiveLink>
@@ -60,7 +60,7 @@ export default function Navbar() {
                         activeClass='bg-transparent-900 text-white'
                       >
                         <a
-                          className='text-purple-700 hover:bg-purple-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                          className='text-slate-800 hover:bg-pink-500 hover:text-white px-3 py-2 rounded-md text-l font-medium'
                           aria-current={item.current ? 'page' : undefined}
                         >
                           {item.name}
@@ -72,9 +72,9 @@ export default function Navbar() {
               </div>
               <div className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
                 <div className='text-gray-300 self-center mr-2'>
-                  <span className='inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-purple-100 text-purple-800'>
+                  <span className='inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-orange-100 text-slate-800'>
                     <svg
-                      className='-ml-0.5 mr-1.5 h-2 w-2 text-indigo-400'
+                      className='-ml-0.5 mr-1.5 h-2 w-2 text-pink-400'
                       fill='currentColor'
                       viewBox='0 0 8 8'
                     >
