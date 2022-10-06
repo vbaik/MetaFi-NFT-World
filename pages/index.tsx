@@ -3,6 +3,7 @@ import type { NextPage } from 'next'; //NextPage type is next.js's built-in type
 import { BaseLayout, NftList, LandingPage, Navbar } from '../components';
 
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
   const { network } = useNetwork();
@@ -24,9 +25,11 @@ const Home: NextPage = () => {
           transform: 'translate3d(-50%,-50%,0)',
         }}
       >
-        <h1 className='font-medium text-slate-700 text-5xl '>Your</h1>
+        <h1 className='font-medium text-slate-700 text-5xl '>
+          Enter into your
+        </h1>
         <h1 className='font-medium text-transparent text-9xl  bg-clip-text bg-gradient-to-r from-pink-400 to-yellow-200'>
-          NFT
+          <Link href='/market'>NFT</Link>
         </h1>
         <h1 className='font-medium text-slate-700 text-5xl text-right'>
           World
