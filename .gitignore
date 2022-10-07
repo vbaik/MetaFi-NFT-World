@@ -38,3 +38,7 @@ keys.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# contracts
+/public/contracts/
+

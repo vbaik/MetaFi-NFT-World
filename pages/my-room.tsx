@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { BaseLayout, Room } from '../components';
 import { Nft, NftMetaData } from '@_types/nft';
 import { useOwnedNfts } from 'components/hooks/web3';
+import axios from 'axios';
 
 const tabs = [{ name: 'Your Collection', href: '#', current: true }];
 
@@ -23,6 +24,14 @@ const MyRoom: NextPage = () => {
     }
     return () => setActiveNft(undefined);
   }, [nfts.data]);
+
+  useEffect(() => {
+    async function fetchRoomAssetData() {
+      const roomAssetsResponse = await axios.get('/api/roomassets/');
+      console.log(roomAssetsResponse);
+    }
+    fetchRoomAssetData()
+   }, []);
 
   return (
     <BaseLayout>
