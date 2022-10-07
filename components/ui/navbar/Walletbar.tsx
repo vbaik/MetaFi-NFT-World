@@ -49,14 +49,14 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
           </Menu.Button>
         </div>
 
-        <Menu.Items className='z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
+        <Menu.Items className='z-10 origin-top-right absolute right-0 mt-2 w-24 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
           <Menu.Item>
             {({ active }) => (
               <Link href='/profile'>
                 <a
                   className={classNames(
-                    active ? 'bg-gray-100' : '',
-                    'block px-4 py-2 text-sm text-gray-700'
+                    active ? 'bg-gray-100 ' : '',
+                    'block px-4 py-2 text-sm text-gray-700 hover:bg-amber-200'
                   )}
                 >
                   Profile
@@ -70,7 +70,7 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
                 <a
                   className={classNames(
                     active ? 'bg-gray-100' : '',
-                    'block px-4 py-2 text-sm text-gray-700'
+                    'block px-4 py-2 text-sm text-gray-700 hover:bg-amber-200'
                   )}
                 >
                   My Room
