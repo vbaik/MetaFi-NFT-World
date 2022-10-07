@@ -27,8 +27,16 @@ const MyRoom: NextPage = () => {
 
   useEffect(() => {
     async function fetchRoomAssetData() {
-      const roomAssetsResponse = await axios.get('/api/roomassets/');
+      const roomAssetsResponse = await axios.get('/api/roomassets?walletAddress=633f8199cc86bf3057feebfd45');
       console.log(roomAssetsResponse);
+
+      const roomAssetsPostResponse = await axios.post('/api/roomassets', {
+        walletAddress: "633f8199cc86bf3057feebfd45",
+        pinataCid: "QmcTKByJtyb9Hh1yBjTcX76eTFcwMA3wMsmKkyG9gJ49t9",
+        xPos: 100,
+        yPos: 200,
+        zPos: 300
+      });
     }
     fetchRoomAssetData()
    }, []);
