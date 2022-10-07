@@ -6,6 +6,7 @@ import { BaseLayout, Room } from '../components';
 import { Nft, NftMetaData } from '@_types/nft';
 import { useOwnedNfts } from 'components/hooks/web3';
 import axios from 'axios';
+import ThreeJsRoom from '../components/ui/threejs/room-vanillaJS';
 
 const tabs = [{ name: 'Your Collection', href: '#', current: true }];
 
@@ -27,23 +28,25 @@ const MyRoom: NextPage = () => {
 
   useEffect(() => {
     async function fetchRoomAssetData() {
-      const roomAssetsResponse = await axios.get('/api/roomassets?walletAddress=633f8199cc86bf3057feebfd45');
+      const roomAssetsResponse = await axios.get(
+        '/api/roomassets?walletAddress=633f8199cc86bf3057feebfd45'
+      );
       console.log(roomAssetsResponse);
 
       const roomAssetsPostResponse = await axios.post('/api/roomassets', {
-        walletAddress: "633f8199cc86bf3057feebfd45",
-        pinataCid: "QmcTKByJtyb9Hh1yBjTcX76eTFcwMA3wMsmKkyG9gJ49t9",
+        walletAddress: '633f8199cc86bf3057feebfd45',
+        pinataCid: 'QmcTKByJtyb9Hh1yBjTcX76eTFcwMA3wMsmKkyG9gJ49t9',
         xPos: 100,
         yPos: 200,
-        zPos: 300
+        zPos: 300,
       });
     }
-    fetchRoomAssetData()
-   }, []);
+    fetchRoomAssetData();
+  }, []);
 
   return (
     <BaseLayout>
-      <div
+      {/* <div
         style={{
           width: '100vw',
           height: '100vh',
@@ -51,9 +54,11 @@ const MyRoom: NextPage = () => {
           left: '0px',
           top: '50px',
         }}
-      >
-        <Room />
-      </div>
+      > */}
+      {/* <Room /> */}
+
+      {typeof window !== 'undefined' ? ThreeJsRoom() : <></>}
+      {/* </div> */}
     </BaseLayout>
   );
 };
