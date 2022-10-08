@@ -46,7 +46,7 @@ const MyRoom: NextPage = () => {
 
   return (
     <BaseLayout>
-      {/* <div
+      <div
         style={{
           width: '100vw',
           height: '100vh',
@@ -54,11 +54,11 @@ const MyRoom: NextPage = () => {
           left: '0px',
           top: '50px',
         }}
-      > */}
-      {/* <Room /> */}
+      >
+        <Room />
 
-      {/* {typeof window !== 'undefined' ? ThreeJsRoom() : <></>} */}
-      {/* </div> */}
+        {/* {typeof window !== 'undefined' ? ThreeJsRoom() : <></>} */}
+      </div>
     </BaseLayout>
   );
 };
