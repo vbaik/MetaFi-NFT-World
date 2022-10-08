@@ -6,6 +6,8 @@ import { BaseLayout } from '../components';
 import { Nft, NftMetaData } from '@_types/nft';
 import { useOwnedNfts } from 'components/hooks/web3';
 import { LoadNft3dObject } from '@ui/threejs/utils';
+import { useRouter } from 'next/router';
+import { spawn } from 'child_process';
 
 const tabs = [{ name: 'My Collection', href: '#', current: true }];
 
@@ -14,6 +16,7 @@ function classNames(...classes: string[]) {
 }
 
 const Profile: NextPage = () => {
+  const router = useRouter();
   const { nfts } = useOwnedNfts();
   const [activeNft, setActiveNft] = useState<Nft>();
 
@@ -25,7 +28,11 @@ const Profile: NextPage = () => {
     return () => setActiveNft(undefined);
   }, [nfts.data]);
 
-  
+  const spawnNft = () => {
+    //redirect
+
+    router.push('/my-room');
+  };
 
   return (
     <BaseLayout>
@@ -77,11 +84,9 @@ const Profile: NextPage = () => {
                         {activeNft.isListed ? 'Already Listed' : 'List NFT'}
                       </button>
                       <button
-                        onClick={() => {
-                          console.log(activeNft.meta.image);
-                        }}
+                        onClick={spawnNft}
                         type='button'
-                        className='disabled:text-gray-400 disabled:cursor-not-allowed flex-1 ml-3 bg-pink-500 disabled:bg-gray-300 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500'
+                        className='flex-1 ml-3 bg-pink-500 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500'
                       >
                         Spawn
                       </button>
