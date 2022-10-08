@@ -22,7 +22,7 @@ const Model = () => {
   );
   return (
     <>
-      <primitive object={gltf.scene} scale={0.4} />
+      <primitive object={gltf.scene} scale={0.3} />
     </>
   );
 };
@@ -32,7 +32,7 @@ export default function Room() {
     <Canvas>
       <Suspense fallback={null}>
         <Model />
-        <OrbitControls />
+        <OrbitControls enableZoom={false} />
         <Environment preset='sunset' background />
       </Suspense>
     </Canvas>
