@@ -26,11 +26,11 @@ export default function LandingPage() {
       gl={{ antialias: false }}
       camera={{ fov: 75, position: [0, 0, 60], near: 10, far: 150 }}
     >
-      {/* <color attach='background' args={['#f0f0f0']} />
+      <color attach='background' args={['#f0f0f0']} />
       <fog attach='fog' args={['white', 60, 110]} />
       <ambientLight intensity={1.5} />
       <pointLight position={[100, 10, -50]} intensity={20} castShadow />
-      <pointLight position={[-100, -100, -100]} intensity={10} color='red' /> */}
+      <pointLight position={[-100, -100, -100]} intensity={10} color='red' />
       <Bubbles />
       <ContactShadows
         position={[0, -30, 0]}
@@ -74,8 +74,8 @@ function Bubbles() {
       receiveShadow
       position={[0, 10, 0]}
     >
-      {/* <sphereGeometry args={[1, 32, 32]} />
-      <meshStandardMaterial roughness={0} color='#f0f0f0' /> */}
+      <sphereGeometry args={[1, 32, 32]} />
+      <meshStandardMaterial roughness={0} color='#f0f0f0' />
       {particles.map((data, i) => (
         <Bubble key={i} {...data} />
       ))}
