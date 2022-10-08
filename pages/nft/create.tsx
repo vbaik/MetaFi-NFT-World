@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { useNetwork } from 'components/hooks/web3';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { LoadNft3dObject } from '@ui/threejs/utils';
+// import { LoadNft3dObject } from '@ui/threejs/utils';
 
 const ALLOWED_FIELDS = ['name', 'description', 'image'];
 
@@ -204,7 +204,7 @@ const NftCreate: NextPage = () => {
             <form>
               <div className='shadow sm:rounded-md sm:overflow-hidden'>
                 <div className='px-4 py-5 bg-white space-y-6 sm:p-6'>
-                  <LoadNft3dObject url={nftMetaData.image} />
+                  {/* <LoadNft3dObject url={nftMetaData.image} /> */}
                   <div>
                     <div className='font-bold'>Your metadata: </div>
                     <div>
@@ -298,11 +298,11 @@ const NftCreate: NextPage = () => {
                         placeholder='ex) http://link.com/asset.glb'
                       />
                     </div>
-                    {nftMetaData.image ? (
+                    {/* {nftMetaData.image ? (
                       <LoadNft3dObject url={nftMetaData.image} />
                     ) : (
                       <></>
-                    )}
+                    )} */}
                   </div>
                 </div>
                 <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>

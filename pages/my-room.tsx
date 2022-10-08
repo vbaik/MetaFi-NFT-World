@@ -57,7 +57,7 @@ const MyRoom: NextPage = () => {
       > */}
       {/* <Room /> */}
 
-      {typeof window !== 'undefined' ? ThreeJsRoom() : <></>}
+      {/* {typeof window !== 'undefined' ? ThreeJsRoom() : <></>} */}
       {/* </div> */}
     </BaseLayout>
   );
