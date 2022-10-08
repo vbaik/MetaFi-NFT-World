@@ -25,6 +25,8 @@ const Profile: NextPage = () => {
     return () => setActiveNft(undefined);
   }, [nfts.data]);
 
+  
+
   return (
     <BaseLayout>
       <div className='my-8'>
@@ -39,7 +41,7 @@ const Profile: NextPage = () => {
                   key={nft.tokenId}
                   onClick={() => setActiveNft(nft)}
                   type='button'
-                  className=' mx-4 items-center focus:bg-amber-200 p-2 px-3 rounded-lg '
+                  className=' mt-5 mx-3 items-center focus:bg-amber-500 p-2 px-3 rounded-lg focus:text-white'
                 >
                   {nft.meta.name}
                 </button>
@@ -52,12 +54,12 @@ const Profile: NextPage = () => {
                 {activeNft && ( //only actived when activeNft is true
                   <div className=''>
                     <LoadNft3dObject url={activeNft.meta.image} />
-                    <div className='mt-4 flex items-start justify-between'>
+                    <div className='mt-4'>
                       <div>
                         <h2 className='text-lg font-medium text-gray-900'>
                           {activeNft.meta.name}
                         </h2>
-                        <p className='text-sm font-medium text-gray-500'>
+                        <p className='text-sm font-medium text-gray-500 mb-5'>
                           {activeNft.meta.description}
                         </p>
                       </div>
@@ -70,9 +72,18 @@ const Profile: NextPage = () => {
                           nfts.listNft(activeNft.tokenId, activeNft.price); //Todo: price should be able to set by the user.
                         }}
                         type='button'
-                        className='disabled:text-gray-400 disabled:cursor-not-allowed flex-1 ml-3 bg-amber-500 disabled:bg-gray-300 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-600'
+                        className='disabled:text-gray-400 disabled:cursor-not-allowed flex-1 ml-3 bg-amber-500 disabled:bg-gray-300 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
                       >
                         {activeNft.isListed ? 'Already Listed' : 'List NFT'}
+                      </button>
+                      <button
+                        onClick={() => {
+                          console.log(activeNft.meta.image);
+                        }}
+                        type='button'
+                        className='disabled:text-gray-400 disabled:cursor-not-allowed flex-1 ml-3 bg-pink-500 disabled:bg-gray-300 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500'
+                      >
+                        Spawn
                       </button>
                     </div>
                   </div>
