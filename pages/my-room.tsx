@@ -6,7 +6,7 @@ import { BaseLayout, Room } from '../components';
 import { Nft, NftMetaData } from '@_types/nft';
 import { useOwnedNfts } from 'components/hooks/web3';
 import axios from 'axios';
-import ThreeJsRoom from '../components/ui/threejs/room-vanillaJS';
+import RoomThreeJs from '../components/ui/threejs/RoomThreeJs';
 
 const tabs = [{ name: 'Your Collection', href: '#', current: true }];
 
@@ -44,21 +44,19 @@ const MyRoom: NextPage = () => {
     fetchRoomAssetData();
   }, []);
 
+  useEffect(() => {
+    RoomThreeJs();
+  }, []);
+
   return (
     <BaseLayout>
-      {/* <div
+      <div
         style={{
-          width: '100vw',
-          height: '100vh',
-          position: 'absolute',
-          left: '0px',
-          top: '50px',
+          width: '1000px',
+          height: '700px',
         }}
-      > */}
-      {/* <Room /> */}
-
-      {typeof window !== 'undefined' ? ThreeJsRoom() : <></>}
-      {/* </div> */}
+        id='scene3d'
+      ></div>
     </BaseLayout>
   );
 };
