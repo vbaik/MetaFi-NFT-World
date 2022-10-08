@@ -2,16 +2,19 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-export default function ThreeJsRoom() {
+export default function RoomThreeJs() {
   const scene = new THREE.Scene();
+  var scene3d = document.getElementById('scene3d');
+  var WIDTH = document.getElementById('scene3d').clientWidth;
+  var HEIGHT = document.getElementById('scene3d').clientHeight;
 
-  // const skyBoxLoader = new THREE.TextureLoader();
-  // const bgTexture = skyBoxLoader.load('https://i.stack.imgur.com/BkeKM.jpg');
-  // scene.background = bgTexture;
+  //   const skyBoxLoader = new THREE.TextureLoader();
+  //   const bgTexture = skyBoxLoader.load('https://i.stack.imgur.com/BkeKM.jpg');
+  //   scene.background = bgTexture;
 
   const loader = new GLTFLoader();
   loader.load(
-    'https://gateway.pinata.cloud/ipfs/QmXoErrVprfEgQqMjtR9DVKc6ebqc78LaXMsZ6eXSrRvcV',
+    'https://roomdesigner.blob.core.windows.net/coinexapp/room/scene.gltf',
     function (gltf) {
       const room = gltf.scene.children[0];
       room.traverse((n) => {
@@ -37,10 +40,10 @@ export default function ThreeJsRoom() {
     'https://gateway.pinata.cloud/ipfs/QmZvRz38c1WiuSuawN7xsi3ztR2GCqptNhXyTPaKKhYQLd',
     function (gltf) {
       const car = gltf.scene.children[0];
-      car.position.z = 12;
-      car.position.y = -1;
+      car.position.z = 0;
+      car.position.y = -4;
       car.position.x = 0;
-      car.scale.set(0.5, 0.5, 0.5);
+      car.scale.set(0.04, 0.04, 0.04);
       car.userData.draggable = true;
       car.castShadow = true;
       car.userData.name = 'winter-girl';
@@ -73,17 +76,12 @@ export default function ThreeJsRoom() {
   const hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820, 4);
   scene.add(hemiLight);
 
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-  );
+  const camera = new THREE.PerspectiveCamera(75, WIDTH / HEIGHT, 0.1, 1000);
 
   const renderer = new THREE.WebGLRenderer();
   renderer.toneMapping = THREE.ReinhardToneMapping;
   renderer.toneMappingExposure = 2.3;
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(WIDTH, HEIGHT);
   renderer.shadowMap.enabled = true;
   document.body.appendChild(renderer.domElement);
 
@@ -110,8 +108,8 @@ export default function ThreeJsRoom() {
       return;
     }
 
-    clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    clickMouse.x = (event.clientX / WIDTH) * 2 - 1;
+    clickMouse.y = -(event.clientY / HEIGHT) * 2 + 1;
 
     raycaster.setFromCamera(clickMouse, camera);
     const found = raycaster.intersectObjects(scene.children);
@@ -136,8 +134,8 @@ export default function ThreeJsRoom() {
       return;
     }
 
-    clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    clickMouse.x = (event.clientX / WIDTH) * 2 - 1;
+    clickMouse.y = -(event.clientY / HEIGHT) * 2 + 1;
 
     raycaster.setFromCamera(clickMouse, camera);
     const found = raycaster.intersectObjects(scene.children);
@@ -155,8 +153,8 @@ export default function ThreeJsRoom() {
   });
 
   window.addEventListener('mousemove', (event) => {
-    moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    moveMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    moveMouse.x = (event.clientX / WIDTH) * 2 - 1;
+    moveMouse.y = -(event.clientY / HEIGHT) * 2 + 1;
   });
 
   function dragObject() {
@@ -212,6 +210,7 @@ export default function ThreeJsRoom() {
   function animate() {
     dragObject();
 
+    scene3d.appendChild(renderer.domElement);
     renderer.render(scene, camera);
     controls.update();
 
