@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { BaseLayout } from '../components';
 import { Nft, NftMetaData } from '@_types/nft';
 import { useOwnedNfts } from 'components/hooks/web3';
-// import { LoadNft3dObject } from '@ui/threejs/utils';
+import { LoadNft3dObject } from '@ui/threejs/utils';
 
 const tabs = [{ name: 'My Collection', href: '#', current: true }];
 
@@ -86,7 +86,7 @@ const Profile: NextPage = () => {
                             'group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 overflow-hidden'
                           )}
                         >
-                          {/* <LoadNft3dObject url={nft.meta.image} /> */}
+                          <LoadNft3dObject url={nft.meta.image} />
                           <button
                             type='button'
                             className='absolute inset-0 focus:outline-none'
@@ -112,7 +112,7 @@ const Profile: NextPage = () => {
                 <div className='pb-16 space-y-6'>
                   <div>
                     <div className='block w-full aspect-w-10 aspect-h-7 rounded-lg overflow-hidden'>
-                      {/* <LoadNft3dObject url={activeNft.meta.image} /> */}
+                      <LoadNft3dObject url={activeNft.meta.image} />
                     </div>
                     <div className='mt-4 flex items-start justify-between'>
                       <div>
