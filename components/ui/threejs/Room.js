@@ -26,14 +26,26 @@ const Model = () => {
     </>
   );
 };
+const Model2 = () => {
+  const gltf = useLoader(
+    GLTFLoader,
+    'https://gateway.pinata.cloud/ipfs/QmWxY6RwZtrs2ErxrMG71DFLqciozgJsWSxRrxoq5Fhs3U'
+  );
+  return (
+    <>
+      <primitive object={gltf.scene} scale={0.3} position={[3.2, 0, 2]} />
+    </>
+  );
+};
 
 export default function Room() {
   return (
     <Canvas>
       <Suspense fallback={null}>
         <Model />
+        <Model2 />
         <OrbitControls enableZoom={false} />
-        <Environment preset='sunset' background />
+        <Environment preset='dawn' background />
       </Suspense>
     </Canvas>
   );
