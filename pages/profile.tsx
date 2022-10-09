@@ -1,13 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 
 import type { NextPage } from 'next';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { BaseLayout } from '../components';
 import { Nft, NftMetaData } from '@_types/nft';
 import { useOwnedNfts } from 'components/hooks/web3';
 import { LoadNft3dObject } from '@ui/threejs/utils';
 import { useRouter } from 'next/router';
 import { spawn } from 'child_process';
+import { Model2 } from '@ui/threejs/Room';
+import { redirect } from 'next/dist/server/api-utils';
 
 const tabs = [{ name: 'My Collection', href: '#', current: true }];
 
@@ -15,10 +17,13 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
+export const SpawnedItemContext = createContext('url');
+
 const Profile: NextPage = () => {
-  const router = useRouter();
   const { nfts } = useOwnedNfts();
+  const router = useRouter();
   const [activeNft, setActiveNft] = useState<Nft>();
+  const [url, setUrl] = useState('');
 
   useEffect(() => {
     if (nfts.data && nfts.data.length > 0) {
@@ -27,12 +32,6 @@ const Profile: NextPage = () => {
     }
     return () => setActiveNft(undefined);
   }, [nfts.data]);
-
-  const spawnNft = () => {
-    //redirect
-
-    router.push('/my-room');
-  };
 
   return (
     <BaseLayout>
@@ -59,39 +58,44 @@ const Profile: NextPage = () => {
             <div className='flex justify-center'>
               <div className='w-max bg-white p-8 mt-10'>
                 {activeNft && ( //only actived when activeNft is true
-                  <div className=''>
-                    <LoadNft3dObject url={activeNft.meta.image} />
-                    <div className='mt-4'>
-                      <div>
-                        <h2 className='text-lg font-medium text-gray-900'>
-                          {activeNft.meta.name}
-                        </h2>
-                        <p className='text-sm font-medium text-gray-500 mb-5'>
-                          {activeNft.meta.description}
-                        </p>
+                  <SpawnedItemContext.Provider value={url}>
+                    <div className=''>
+                      <LoadNft3dObject url={activeNft.meta.image} />
+                      <div className='mt-4'>
+                        <div>
+                          <h2 className='text-lg font-medium text-gray-900'>
+                            {activeNft.meta.name}
+                          </h2>
+                          <p className='text-sm font-medium text-gray-500 mb-5'>
+                            {activeNft.meta.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className='flex'>
+                        <button
+                          disabled={activeNft.isListed}
+                          onClick={() => {
+                            nfts.listNft(activeNft.tokenId, activeNft.price); //Todo: price should be able to set by the user.
+                          }}
+                          type='button'
+                          className='disabled:text-gray-400 disabled:cursor-not-allowed flex-1 ml-3 bg-amber-500 disabled:bg-gray-300 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
+                        >
+                          {activeNft.isListed ? 'Already Listed' : 'List NFT'}
+                        </button>
+                        <button
+                          onClick={() => {
+                            setUrl(activeNft.meta.image);
+                            router.push('/my-room');
+                          }}
+                          type='button'
+                          className='flex-1 ml-3 bg-pink-500 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500'
+                        >
+                          Spawn
+                        </button>
                       </div>
                     </div>
-
-                    <div className='flex'>
-                      <button
-                        disabled={activeNft.isListed}
-                        onClick={() => {
-                          nfts.listNft(activeNft.tokenId, activeNft.price); //Todo: price should be able to set by the user.
-                        }}
-                        type='button'
-                        className='disabled:text-gray-400 disabled:cursor-not-allowed flex-1 ml-3 bg-amber-500 disabled:bg-gray-300 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
-                      >
-                        {activeNft.isListed ? 'Already Listed' : 'List NFT'}
-                      </button>
-                      <button
-                        onClick={spawnNft}
-                        type='button'
-                        className='flex-1 ml-3 bg-pink-500 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500'
-                      >
-                        Spawn
-                      </button>
-                    </div>
-                  </div>
+                  </SpawnedItemContext.Provider>
                 )}
               </div>
             </div>

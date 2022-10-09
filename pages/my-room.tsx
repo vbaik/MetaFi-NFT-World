@@ -6,25 +6,9 @@ import { BaseLayout, Room } from '../components';
 import { Nft, NftMetaData } from '@_types/nft';
 import { useOwnedNfts } from 'components/hooks/web3';
 import axios from 'axios';
-import ThreeJsRoom from '../components/ui/threejs/room-vanillaJS';
-
-const tabs = [{ name: 'Your Collection', href: '#', current: true }];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
 
 const MyRoom: NextPage = () => {
-  const { nfts } = useOwnedNfts();
-  const [activeNft, setActiveNft] = useState<Nft>();
 
-  useEffect(() => {
-    if (nfts.data && nfts.data.length > 0) {
-      //called only when we have nft data
-      setActiveNft(nfts.data[0]);
-    }
-    return () => setActiveNft(undefined);
-  }, [nfts.data]);
 
   useEffect(() => {
     async function fetchRoomAssetData() {

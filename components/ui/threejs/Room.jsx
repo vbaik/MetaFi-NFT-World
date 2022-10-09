@@ -1,7 +1,7 @@
 /* eslint-disable */
-
+import { useOwnedNfts } from 'components/hooks/web3';
 import * as THREE from 'three';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { Canvas } from '@react-three/fiber';
 import {
   useGLTF,
@@ -14,6 +14,7 @@ import {
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Suspense } from 'react';
+import { SpawnedItemContext } from 'pages/profile';
 
 const Model = () => {
   const gltf = useLoader(
@@ -26,11 +27,14 @@ const Model = () => {
     </>
   );
 };
-const Model2 = () => {
-  const gltf = useLoader(
-    GLTFLoader,
-    'https://gateway.pinata.cloud/ipfs/QmWxY6RwZtrs2ErxrMG71DFLqciozgJsWSxRrxoq5Fhs3U'
-  );
+const url2 =
+  'https://gateway.pinata.cloud/ipfs/QmWxY6RwZtrs2ErxrMG71DFLqciozgJsWSxRrxoq5Fhs3U';
+
+export const Model2 = ({ url }) => {
+  // const url = useContext(SpawnedItemContext);
+  console.log('******', url);
+  const gltf = useLoader(GLTFLoader, url);
+
   return (
     <>
       <primitive object={gltf.scene} scale={0.3} position={[3.2, 0, 2]} />
@@ -39,11 +43,24 @@ const Model2 = () => {
 };
 
 export default function Room() {
+  const { nfts } = useOwnedNfts();
+  console.log(':)', nfts);
   return (
     <Canvas>
       <Suspense fallback={null}>
         <Model />
-        <Model2 />
+        {nfts.data.length > 0 ? (
+          nfts.data.map((nft) =>
+            nft.meta.image !== undefined ? (
+              <Model2 key={nft.meta.image} url={nft.meta.image} />
+            ) : (
+              <></>
+            )
+          )
+        ) : (
+          <></>
+        )}
+        {/* <Model2 /> */}
         <OrbitControls enableZoom={false} />
         <Environment preset='dawn' background />
       </Suspense>
