@@ -49,7 +49,7 @@ export const hookFactory: OwnedNftsHookFactory =
             tokenId,
             ethers.utils.parseEther(price.toString()), //price converted to wei
             {
-              value: ethers.utils.parseEther((0.025).toString()), //fixed listing fee in wei
+              value: ethers.utils.parseEther((0.05).toString()), //fixed listing fee in wei
             }
           );
           await toast.promise(result!.wait(), {

@@ -25,13 +25,13 @@ const Home: NextPage = () => {
           transform: 'translate3d(-50%,-50%,0)',
         }}
       >
-        <h1 className='font-medium text-slate-700 text-5xl '>
+        <h1 className='font-medium text-slate-700 text-5xl pl-5'>
           Enter into your
         </h1>
-        <h1 className='font-medium text-transparent text-9xl  bg-clip-text bg-gradient-to-r from-pink-400 to-yellow-200'>
+        <h1 className='font-Gugi font-medium text-transparent text-9xl  bg-clip-text bg-gradient-to-r from-pink-400 to-yellow-200 tracking-widest mt-4'>
           <Link href='/my-room'>NFT</Link>
         </h1>
-        <h1 className='font-medium text-slate-700 text-5xl text-right'>
+        <h1 className='font-medium text-slate-700 text-5xl text-right pr-5'>
           World
         </h1>
       </div>

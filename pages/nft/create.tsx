@@ -146,7 +146,7 @@ const NftCreate: NextPage = () => {
         nftURI, //link to JSON file
         ethers.utils.parseEther(price),
         {
-          value: ethers.utils.parseEther((0.025).toString()), //listing fee
+          value: ethers.utils.parseEther((0.05).toString()), //listing fee
         }
       );
 
@@ -203,9 +203,9 @@ const NftCreate: NextPage = () => {
                   <LoadNft3dObject url={nftMetaData.image} />
                   <div>
                     <div className='font-bold'>Your metadata: </div>
-                    <div>
+                    <div >
                       <Link href={nftURI}>
-                        <a className='underline text-pink-600'>{nftURI}</a>
+                        <a className='text-sm underline text-amber-600'>{nftURI}</a>
                       </Link>
                     </div>
                     <label htmlFor='price' className='font-bold'>

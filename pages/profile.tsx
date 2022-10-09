@@ -41,13 +41,13 @@ const Profile: NextPage = () => {
             <h2 className='text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-300 sm:text-4xl'>
               My NFTs
             </h2>
-            <div className='flex justify-center'>
+            <div className='flex justify-center mt-5'>
               {(nfts.data as Nft[]).map((nft) => (
                 <button
                   key={nft.tokenId}
                   onClick={() => setActiveNft(nft)}
                   type='button'
-                  className=' mt-5 mx-3 items-center focus:bg-amber-500 p-2 px-3 rounded-lg focus:text-white'
+                  className=' mt-5 mx-3 text-pink-700 items-center focus:bg-amber-500 p-2 px-3 rounded-lg focus:text-white border-2 border-amber-500'
                 >
                   {nft.meta.name}
                 </button>
@@ -56,23 +56,23 @@ const Profile: NextPage = () => {
 
             {/* Details sidebar */}
             <div className='flex justify-center'>
-              <div className='w-max bg-white p-8 mt-10'>
+              <div className='p-8 mt-10 max-w-lg'>
                 {activeNft && ( //only actived when activeNft is true
                   <SpawnedItemContext.Provider value={url}>
                     <div className=''>
                       <LoadNft3dObject url={activeNft.meta.image} />
                       <div className='mt-4'>
                         <div>
-                          <h2 className='text-lg font-medium text-gray-900'>
+                          <h2 className='text-2xl font-Gugi text-pink-600'>
                             {activeNft.meta.name}
                           </h2>
-                          <p className='text-sm font-medium text-gray-500 mb-5'>
+                          <p className='text-2xl font-light text-amber-600 mb-5 font-Gaegu mt-5'>
                             {activeNft.meta.description}
                           </p>
                         </div>
                       </div>
 
-                      <div className='flex'>
+                      <div>
                         <button
                           disabled={activeNft.isListed}
                           onClick={() => {
@@ -83,7 +83,7 @@ const Profile: NextPage = () => {
                         >
                           {activeNft.isListed ? 'Already Listed' : 'List NFT'}
                         </button>
-                        <button
+                        {/* <button
                           onClick={() => {
                             setUrl(activeNft.meta.image);
                             router.push('/my-room');
@@ -92,7 +92,7 @@ const Profile: NextPage = () => {
                           className='flex-1 ml-3 bg-pink-500 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500'
                         >
                           Spawn
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </SpawnedItemContext.Provider>
