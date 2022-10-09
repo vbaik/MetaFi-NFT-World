@@ -15,7 +15,6 @@ import { ethers } from 'ethers';
 import { MetaMaskInpageProvider } from '@metamask/providers';
 import { NftMarketContract } from '@_types/nftMarketContract';
 
-//밑에꺼 꼭 넣어야 children에서 에러안남.
 //In the new version of React, when you pass children, you need to explicitly specify a type for it:
 interface Props {
   children: React.ReactNode;
@@ -83,7 +82,7 @@ const Web3Provider: FunctionComponent<Props> = ({ children }) => {
 
     //once done listening the chain change, remove the listner.
     return () => removeGlobalListeners(window.ethereum);
-  }, []); //called only once when the component is initialized 그래서 []를 2nd arg로 넣은것임..
+  }, []);
 
   return (
     <Web3Context.Provider value={web3Api}>{children}</Web3Context.Provider>

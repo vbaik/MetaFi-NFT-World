@@ -1,7 +1,6 @@
 import { FunctionComponent } from 'react';
 import Navbar from '../navbar';
 
-//for react > 18, 밑에꺼 넣어야 children prop이 들어감. 18전에는 밑에라인 안써도 됐음.
 interface Props {
   children?: React.ReactNode;
 }
