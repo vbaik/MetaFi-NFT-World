@@ -11,36 +11,29 @@ const Market: NextPage = () => {
     <BaseLayout>
       <div className='my-8'>
         <div className='relative'>
-          <div className='text-center'>
-            <h2 className='text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-300 sm:text-4xl'>
-              All NFTs for Sale
-            </h2>
-            {/* <p className='mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4'>
-              Create • Sell • Buy NFTs in Your Own Space!
-            </p> */}
-          </div>
           {network.isConnectedToNetwork ? (
-            <NftList />
+            <div>
+              <h2 className='grid place-items-center text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-300 sm:text-4xl'>
+                All NFTs for Sale
+              </h2>
+              <NftList />
+            </div>
           ) : (
-            <div className='rounded-md bg-yellow-50 p-4 mt-10'>
-              <div className='flex'>
-                <div className='flex-shrink-0'>
-                  <ExclamationCircleIcon
-                    className='h-5 w-5 text-red-400'
-                    aria-hidden='true'
-                  />
-                </div>
-                <div className='ml-3'>
-                  <h3 className='text-sm font-medium text-red-800'>
-                    Attention needed
-                  </h3>
-                  <div className='mt-2 text-sm text-yellow-700'>
-                    <p>
-                      {network.isLoading
-                        ? 'Loading...'
-                        : `Please connect to ${network.targetNetwork}.`}
-                    </p>
-                  </div>
+            <div className='flex items-center justify-center mt-16'>
+              <ExclamationCircleIcon
+                className='h-24 text-red-400 content-center '
+                aria-hidden='true'
+              />
+              <div className='ml-3'>
+                <h3 className='text-2xl font-medium text-red-800'>
+                  Attention needed
+                </h3>
+                <div className='mt-3 text-lg text-yellow-700'>
+                  <p>
+                    {network.isLoading
+                      ? 'Loading...'
+                      : `Please connect to ${network.targetNetwork}.`}
+                  </p>
                 </div>
               </div>
             </div>

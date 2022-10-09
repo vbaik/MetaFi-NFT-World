@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 import { useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 import { CryptoHookFactory } from '@_types/hooks';
 
@@ -49,7 +50,11 @@ export const hookFactory: AccountHookFactory =
         console.error('Please, connect to Web3 wallet');
       } else if (accounts[0] !== data) {
         //if the current account is not the same as the old account
-        alert('accounts has changed');
+        Swal.fire({
+          title: '<strong>Account has been changed.</strong>',
+          icon: 'info',
+          confirmButtonText: 'OK',
+        });
         mutate(accounts[0]); //provide new data to our hook function
       }
     };
