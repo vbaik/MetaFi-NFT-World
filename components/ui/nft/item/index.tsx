@@ -1,14 +1,26 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState, useEffect } from 'react';
 import { Nft } from '../../../../types/nft';
 import { LoadNft3dObject } from '@ui/threejs/utils';
 import { shortifyAddress } from '@ui/utils';
+import { useOwnedNfts } from 'components/hooks/web3';
 
 type NftItemProps = {
   item: Nft;
   buyNft: (token: number, value: number) => Promise<void>;
+  ownedTokenIds: Number[] | undefined;
 };
 
-const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
+const NftItem: FunctionComponent<NftItemProps> = ({
+  item,
+  buyNft,
+  ownedTokenIds,
+}) => {
+  const [owned, setOwned] = useState(false);
+
+  useEffect(() => {
+    if (ownedTokenIds?.find((id) => id === item.tokenId)) setOwned(true);
+  }, [ownedTokenIds, item.tokenId]);
+
   return (
     <div>
       <div className='flex-shrink-0'>
@@ -23,7 +35,7 @@ const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
             {shortifyAddress(item.creator)}
           </p>
 
-          <div className='block mt-2'>
+          <div className='block mt-2' onClick={() => setOwned(true)}>
             <p className='text-xl font-semibold text-gray-900'>
               {item.meta.name}
             </p>
@@ -38,13 +50,14 @@ const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
               {`${item.price} CET`}
             </p>
             <button
+              disabled={owned}
               onClick={() => {
                 buyNft(item.tokenId, item.price);
               }}
               type='button'
               className='disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none disabled:cursor-not-allowed mr-2 inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-pink-500 hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500'
             >
-              Buy
+              {owned ? 'Already Owned' : 'Buy'}
             </button>
           </div>
           {/* <button

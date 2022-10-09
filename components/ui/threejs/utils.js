@@ -30,7 +30,7 @@ export function LoadNft3dObject({ url }) {
       <spotLight position={[50, 50, 10]} angle={0.15} penumbra={1} />
       <Bounds fit clip observe margin={1.2}>
         <SelectToZoom>
-          <Model position={[0, 0.25, 0]} url={url} />
+          <Model position={[0, 0, 0]} url={url} />
         </SelectToZoom>
       </Bounds>
       <OrbitControls

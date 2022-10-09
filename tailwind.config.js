@@ -7,7 +7,11 @@ module.exports = {
   theme: {
     extend: {
       fontSize: {
-        '9xl': ['15rem', '15rem'],
+        '9xl': ['16rem', '14rem'],
+      },
+      fontFamily: {
+        "Concert": 'Concert One, cursive',
+        "Gugi": 'Gugi, cursive'
       },
     },
   },
