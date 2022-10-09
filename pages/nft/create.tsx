@@ -167,25 +167,21 @@ const NftCreate: NextPage = () => {
   if (!network.isConnectedToNetwork) {
     return (
       <BaseLayout>
-        <div className='rounded-md bg-yellow-50 p-4 mt-10'>
-          <div className='flex'>
-            <div className='flex-shrink-0'>
-              <ExclamationCircleIcon
-                className='h-5 w-5 text-red-600'
-                aria-hidden='true'
-              />
-            </div>
-            <div className='ml-3'>
-              <h3 className='text-sm font-medium text-red-800'>
-                Attention needed
-              </h3>
-              <div className='mt-2 text-sm text-yellow-700'>
-                <p>
-                  {network.isLoading
-                    ? 'Loading...'
-                    : `Please onnect to ${network.targetNetwork}.`}
-                </p>
-              </div>
+        <div className='flex items-center justify-center mt-16'>
+          <ExclamationCircleIcon
+            className='h-24 text-red-400 content-center '
+            aria-hidden='true'
+          />
+          <div className='ml-3'>
+            <h3 className='text-2xl font-medium text-red-800'>
+              Attention needed
+            </h3>
+            <div className='mt-3 text-lg text-yellow-700'>
+              <p>
+                {network.isLoading
+                  ? 'Loading...'
+                  : `Please connect to ${network.targetNetwork}.`}
+              </p>
             </div>
           </div>
         </div>
