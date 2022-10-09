@@ -146,7 +146,7 @@ const NftCreate: NextPage = () => {
         nftURI, //link to JSON file
         ethers.utils.parseEther(price),
         {
-          value: ethers.utils.parseEther((0.025).toString()), //listing fee
+          value: ethers.utils.parseEther((0.05).toString()), //listing fee
         }
       );
 

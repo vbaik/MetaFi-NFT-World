@@ -9,7 +9,7 @@ contract NftMarket is ERC721URIStorage, Ownable {
   using Counters for Counters.Counter;
 
   //public variables:
-  uint public listingFee = 0.025 ether; //cost for listing an item. --> TODO: make a function so that listingFee = min(0.025 ETH, 2.5% of Price of NFT)
+  uint public listingFee = 0.05 ether; //cost for listing an item. --> TODO: make a function so that listingFee = min(0.025 ETH, 2.5% of Price of NFT)
  
   //private variables:
   Counters.Counter private _listedItems; //total number of listed NFT items in the NFTmarket.

@@ -4,7 +4,7 @@ const { ethers } = require('ethers');
 contract('NftMarket', (accounts) => {
   let _contract = null;
   let _nftPrice = ethers.utils.parseEther('0.3').toString(); //convert ETH to wei
-  let _listingFee = ethers.utils.parseEther('0.025').toString();
+  let _listingFee = ethers.utils.parseEther('0.05').toString();
 
   before(async () => {
     _contract = await NftMarket.deployed();
