@@ -23,7 +23,7 @@ const NftItem: FunctionComponent<NftItemProps> = ({
 
   return (
     <div>
-      <div className='flex-shrink-0'>
+      <div className='flex-shrink-0 bg-white'>
         <LoadNft3dObject url={item.meta.image} />
       </div>
       <div className='flex-1 bg-white p-6 flex flex-col justify-between'>

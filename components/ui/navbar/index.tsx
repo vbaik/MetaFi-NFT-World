@@ -61,7 +61,7 @@ export default function Navbar() {
                         activeClass='bg-transparent-900 text-white'
                       >
                         <a
-                          className='text-slate-800 hover:bg-pink-500 hover:text-white px-3 py-2 rounded-md text-l font-medium'
+                          className='text-slate-800 hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-l font-medium'
                           aria-current={item.current ? 'page' : undefined}
                         >
                           {item.name}

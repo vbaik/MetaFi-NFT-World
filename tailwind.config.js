@@ -10,8 +10,9 @@ module.exports = {
         '9xl': ['16rem', '14rem'],
       },
       fontFamily: {
-        "Concert": 'Concert One, cursive',
-        "Gugi": 'Gugi, cursive'
+        Concert: 'Concert One, cursive',
+        Gugi: 'Gugi, cursive',
+        Gaegu: 'Gaegu, cursive',
       },
     },
   },
