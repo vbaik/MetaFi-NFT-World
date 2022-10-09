@@ -22,7 +22,7 @@ const Model = () => {
   const gltf = useLoader(GLTFLoader, '/3d-models/tropical_island.glb');
   return (
     <>
-      <primitive object={gltf.scene} scale={1} position={[0, -1.3, 0]} />
+      <primitive object={gltf.scene} scale={0.9} position={[0, -1.3, 0]} />
     </>
   );
 };
