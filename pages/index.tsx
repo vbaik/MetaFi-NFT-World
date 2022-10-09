@@ -29,7 +29,7 @@ const Home: NextPage = () => {
           Enter into your
         </h1>
         <h1 className='font-medium text-transparent text-9xl  bg-clip-text bg-gradient-to-r from-pink-400 to-yellow-200'>
-          <Link href='/market'>NFT</Link>
+          <Link href='/my-room'>NFT</Link>
         </h1>
         <h1 className='font-medium text-slate-700 text-5xl text-right'>
           World

@@ -8,8 +8,6 @@ import { useOwnedNfts } from 'components/hooks/web3';
 import axios from 'axios';
 
 const MyRoom: NextPage = () => {
-
-
   useEffect(() => {
     async function fetchRoomAssetData() {
       const roomAssetsResponse = await axios.get(
