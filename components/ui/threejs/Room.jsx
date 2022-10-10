@@ -77,4 +77,4 @@ export default function Room() {
   );
 }
 
-useGLTF.preload('3d-models/room.glb');
+useGLTF.preload('3d-models/tropical_island.glb');
