@@ -20,7 +20,6 @@ export const hookFactory: OwnedNftsHookFactory =
       async () => {
         const nfts = [] as Nft[];
         const allNftsOwned = await contract!.getOwnedNfts();
-        // console.log('all NFTs owned by the user -->', allNftsOwned);
 
         for (let i = 0; i < allNftsOwned.length; i++) {
           const eachNftItem = allNftsOwned[i];

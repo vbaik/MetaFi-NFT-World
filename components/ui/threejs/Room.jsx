@@ -30,8 +30,6 @@ const url2 =
   'https://gateway.pinata.cloud/ipfs/QmWxY6RwZtrs2ErxrMG71DFLqciozgJsWSxRrxoq5Fhs3U';
 
 export const Model2 = ({ url, position, rotation }) => {
-  // const url = useContext(SpawnedItemContext);
-  console.log('******', url);
   const gltf = useLoader(GLTFLoader, url);
 
   return (
@@ -48,7 +46,6 @@ export const Model2 = ({ url, position, rotation }) => {
 
 export default function Room() {
   const { nfts } = useOwnedNfts();
-  console.log(':)', nfts);
   return (
     <Canvas>
       <Suspense fallback={null}>

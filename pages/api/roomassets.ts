@@ -31,9 +31,9 @@ export default async function handler(req: any, res: any) {
             },
             };
             const result = await roomAssets.updateOne(filter, updateDoc, options);
-            console.log(
-            `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
-            );
+            // console.log(
+            // `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
+            // );
 
             res.status(200).send(result);
         }

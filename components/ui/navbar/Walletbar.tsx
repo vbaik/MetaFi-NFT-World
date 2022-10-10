@@ -11,12 +11,6 @@ type WalletbarProps = {
 };
 
 function classNames(...classes: string[]) {
-  console.log('classes', classes);
-  console.log(
-    "classes.filter(Boolean).join(' ') --->",
-    classes.filter(Boolean).join(' ')
-  );
-
   return classes.filter(Boolean).join(' ');
 }
 

@@ -48,7 +48,6 @@ export const addressCheckMiddleware = async (
 ) => {
   return new Promise(async (resolve, reject) => {
     const message = req.session.get('message-session');
-    console.log('unsigned message ->', message);
 
     if (message) {
       const provider = new ethers.providers.JsonRpcProvider(providerRpcUrl);
@@ -69,11 +68,7 @@ export const addressCheckMiddleware = async (
         JSON.stringify(message).length +
         JSON.stringify(message);
 
-      console.log('reformated msg ->', nonce);
-
       nonce = util.keccak(Buffer.from(nonce, 'utf-8')); //converted to bytes
-
-      console.log('hashed nonce ->', nonce);
 
       const { v, r, s } = util.fromRpcSig(req.body.signature); //extract parts of the signature
       const pubKey = util.ecrecover(util.toBuffer(nonce), v, r, s); //public key of user

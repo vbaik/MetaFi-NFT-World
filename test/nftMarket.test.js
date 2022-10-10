@@ -131,7 +131,6 @@ contract('NftMarket', (accounts) => {
 
     it('account[0] should have one owned NFT', async () => {
       const ownedNfts = await _contract.getOwnedNfts({ from: accounts[0] });
-      //   console.log(ownedNfts);
       assert.equal(ownedNfts[0].tokenId, 2, 'Nft has a wrong id');
     });
   });
@@ -144,13 +143,11 @@ contract('NftMarket', (accounts) => {
 
     it('accounts[0] should own 0 tokens', async () => {
       const ownedNfts = await _contract.getOwnedNfts({ from: accounts[0] });
-      //   console.log('account[0] owned Nfts --->', ownedNfts);
       assert.equal(ownedNfts.length, 0, 'Invalid length of tokens');
     });
 
     it('accounts[1] should own 2 tokens', async () => {
       const ownedNfts = await _contract.getOwnedNfts({ from: accounts[1] });
-      //   console.log('account[1] owned Nfts --->', ownedNfts);
       assert.equal(ownedNfts.length, 2, 'Invalid length of tokens');
     });
   });
@@ -158,7 +155,6 @@ contract('NftMarket', (accounts) => {
   //To test listing NFT for sale.
   describe('List an NFT', () => {
     before(async () => {
-      console.log('all NFT owned:', (await _contract.totalSupply()).toNumber());
       await _contract.placeNftForSale(1, _nftPrice, {
         from: accounts[1], //has to be owner of the tokenId 1
         value: _listingFee, //pay for listing fee

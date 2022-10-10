@@ -13,7 +13,6 @@ const MyRoom: NextPage = () => {
       const roomAssetsResponse = await axios.get(
         '/api/roomassets?walletAddress=633f8199cc86bf3057feebfd45'
       );
-      console.log(roomAssetsResponse);
 
       const roomAssetsPostResponse = await axios.post('/api/roomassets', {
         walletAddress: '633f8199cc86bf3057feebfd45',
