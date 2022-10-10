@@ -38,16 +38,8 @@ contract NftMarket is ERC721URIStorage, Ownable {
     bool isListed
   );
 
-  constructor() ERC721("CreaturesNFT", "CNFT") {} // ERC721(쓰고싶은 name of collection of NFTs, token name )
+  constructor() ERC721("NFTWorld", "NWD") {} 
 
-  //the function below doesn't seem to make sense. The creator of the NFT should not be able to set the listing fee. The Marketplace should. So I am going to comment it out.
-  // function setListingFee(uint newFee) external onlyOwner { //external = only able to call the function from the outside of the contract. And onlyOwner can call it. 
-  //   require(newFee > 0, "The listing fee must be at least 1 wei");
-  //   listingFee = newFee;
-  // }
-
-
-  
   function mintToken(string memory tokenURI, uint price) public payable returns (uint) {
     require(!tokenURIExists(tokenURI), "Token URI already exists");
     require(msg.value == listingFee, "You need to send the right amount of listing fee.");
