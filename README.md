@@ -1,34 +1,38 @@
+## Inspiration
+
+There are many NFT marketplaces for images, but almost none for 3d models. So, we wanted to create a dedicated place where people can create, buy and sell NFT 3d assets.
+
+## What it does
+
+NFT World is a web application where you can
+
+- upload 3D asset metadata to IPFS and mint a token,
+- list minted or previously purchased NFTs,
+- browse all the 3d models that are listed for sale and make a purchase, and
+- view all the NFTs that you currently own in a 3d virtual space.
+
+## How we built it
+
+NFT World's smart contract is written in Solidity based on ERC721 and deployed to the CoinEx TestNet [(here)](https://testnet.coinex.net/address/0xc67b8EA80a9fFf8Be0427b8bd6536f69B014345A). We used Pinata (IPFS) to store NFT's metadata. Our React dApp is mainly written in TypeScript and built on Next.js frame to utilize hybrid static and server side rendering. To render 3d assets and the virtual space, we used react-three-fiber(R3F) which is built on top of three.js. Lastly, we choose to use Tailwind CSS since it's highly customizable. Without resources such as [stack overflow](https://stackoverflow.com/), [Udemy](https://www.udemy.com/course/nft-marketplace-in-react-typescript-solidity-full-guide/), [YouTube](https://www.youtube.com/watch?v=EF3zWvxGm4M&list=PLFdLKuByuofHEfp3gIGzqKKqNrPMXh7Qv), [Sketchfab](https://sketchfab.com/tiagojdferreira/collections/kawaii-6b6567d0a2a8477098b635d652d494ad), [three.js](https://threejs.org/) and [R3F](https://docs.pmnd.rs/react-three-fiber/getting-started/introduction)'s documentation and examples, it wouldn't have been possible to create this app!
+
+## Challenges we ran into
+
+Here are some of the challenges we faced:
+- Rate limit from Pinata's Public Gateway - without a paid plan and without creating dedicated gateways, Pinata does not allow the deployed app in production to fetch large 3d files, 
+- Implementing the functionality so that the user can directly upload their .glb file to IPFS,
+- Integrating three.js to React TypeScript components (we ended up using react-three-fiber library and sacrifice dynamically 'spawning' NFT functionality), and
+- Finding an API for the exchange rate between CET, ETH and USD.
+
+## What's next for NFT World
+
+- Users can dynamically spawn the minted/purchased 3d NFT into their virtual space and can interact with it.
+- Other users can also visit the creator's virtual space and make a purchase straight from the space.
+- Buyers can interact with the sellers via live chat.
+- Users can directly upload the 3d files to IPFS.
+- Improve responsiveness,
+- Implement rarity to each NFT
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
