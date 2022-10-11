@@ -1,3 +1,9 @@
+![20221010](https://user-images.githubusercontent.com/59579994/195117246-66e41980-0f57-4925-9913-ccbe91d4fc0c.gif)
+
+
+
+
+
 ## Inspiration
 
 There are many NFT marketplaces for images, but almost none for 3d models. So, we wanted to create a dedicated place where people can create, buy and sell NFT 3d assets.
@@ -10,6 +16,11 @@ NFT World is a web application where you can
 - list minted or previously purchased NFTs,
 - browse all the 3d models that are listed for sale and make a purchase, and
 - view all the NFTs that you currently own in a 3d virtual space.
+
+
+![Screen Shot 2022-10-11 at 2 26 33 AM copy](https://user-images.githubusercontent.com/59579994/195117147-a2a31940-b7a8-4d1c-88ca-4762ad6d6df9.jpg)
+
+
 
 ## How we built it
 
